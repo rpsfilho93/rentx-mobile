@@ -8,7 +8,11 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/archivo": "^0.1.0",
+    "@expo-google-fonts/inter": "^0.1.0",
     "@react-native-community/masked-view": "0.1.10",
+    "@react-navigation/native": "^5.8.9",
+    "@react-navigation/stack": "^5.12.6",
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.22.1",
@@ -16,6 +20,7 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4",
     "expo": "~39.0.2",
+    "expo-font": "~8.3.0",
     "expo-status-bar": "~1.0.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -25,13 +30,17 @@
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
     "@types/react": "~16.9.35",
     "@types/react-dom": "~16.9.8",
     "@types/react-native": "~0.63.2",
+    "@types/react-native-onboarding-swiper": "^1.1.1",
+    "@types/react-native-vector-icons": "^6.4.6",
+    "@types/styled-components": "^5.1.4",
     "eslint": "6.8.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-import-resolver-typescript": "^2.3.0",
