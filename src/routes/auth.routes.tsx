@@ -1,6 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import SplashScreen from '../pages/SplashScreen';
+
 import Onboarding1 from '../pages/Onboarding1';
 import Onboarding2 from '../pages/Onboarding2';
 import Onboarding3 from '../pages/Onboarding3';
@@ -14,6 +16,7 @@ const AuthRoutes:React.FC = () => (
       cardStyle: { backgroundColor: '#fff' },
     }}
   >
+    <Auth.Screen name="SplashScreen" component={SplashScreen} />
     <Auth.Screen name="Onboarding1" component={Onboarding1} />
     <Auth.Screen name="Onboarding2" component={Onboarding2} />
     <Auth.Screen name="Onboarding3" component={Onboarding3} />
