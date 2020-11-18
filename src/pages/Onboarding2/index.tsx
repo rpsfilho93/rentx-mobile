@@ -5,11 +5,11 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Container, ImageContainer, Numeral, TitleContainer, Title, SubTitle, Footer, PageIndicator, ActiveSquare, InactiveSquare, NextPageButton } from './styles';
 
-const Onboarding1:React.FC = () => {
+const Onboarding2:React.FC = () => {
   const { navigate } = useNavigation();
 
   const handleNextPage = useCallback(() => {
-    navigate('Onboarding2');
+    navigate('Onboarding3');
   }, []);
 
   return (
@@ -18,18 +18,18 @@ const Onboarding1:React.FC = () => {
 
       <ImageContainer>
         <Feather name='calendar' size={70} color="#f00"/>
-        <Numeral>01</Numeral>
+        <Numeral>02</Numeral>
       </ImageContainer>
 
       <TitleContainer>
-        <Title>Primeiro, escolha a data</Title>
-        <SubTitle>Você é quem define um período, e nós mostraremos os carros disponíveis.</SubTitle>
+        <Title>Depois, escolha o carro</Title>
+        <SubTitle>Vários modelos para você dirigir seguro, com conforto e segurança.</SubTitle>
       </TitleContainer>
 
       <Footer>
         <PageIndicator>
-          <ActiveSquare />
           <InactiveSquare />
+          <ActiveSquare />
         </PageIndicator>
 
         <NextPageButton onPress={handleNextPage}>
@@ -40,4 +40,4 @@ const Onboarding1:React.FC = () => {
   );
 };
 
-export default Onboarding1;
+export default Onboarding2;

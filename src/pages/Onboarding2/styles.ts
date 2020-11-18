@@ -60,13 +60,13 @@ export const ActiveSquare = styled.View`
   height: 4px;
   border-radius: 2px;
   background-color: #47474D;
-  margin-right: 8px;
 `;
 
 export const InactiveSquare = styled.View`
   width: 4px;
   height: 4px;
   border-radius: 2px;
+  margin-right: 8px;
   background-color: #AEAEB3;
 `;
 
