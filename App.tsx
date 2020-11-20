@@ -31,8 +31,7 @@ const App:React.FC = () => {
   } else {
     return (
       <NavigationContainer>
-        <StatusBar barStyle="light-content" translucent backgroundColor="transparent"/>
-
+        <StatusBar barStyle="dark-content" translucent backgroundColor="transparent"/>
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <Routes />
         </View>

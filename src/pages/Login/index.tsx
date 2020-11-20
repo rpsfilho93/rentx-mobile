@@ -35,8 +35,6 @@ const Login:React.FC = () => {
           contentContainerStyle={{ flex: 1 }}
         >
         <Container >
-          <StatusBar barStyle="dark-content" translucent backgroundColor="transparent"/>
-
           <GoBackButton onPress={handleGoBack}>
             <Feather name='chevron-left' size={20} color="#AEAEB3" style={{ alignSelf: 'flex-start'}} />
           </GoBackButton>

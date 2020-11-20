@@ -17,6 +17,10 @@ const Onboarding3:React.FC = () => {
     navigate('Login');
   }, []);
 
+  const handleSignUp = useCallback(() => {
+    navigate('SignUp1');
+  }, []);
+
   return (
     <Container>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent"/>
@@ -30,7 +34,7 @@ const Onboarding3:React.FC = () => {
           <ButtonText>Login</ButtonText>
         </LoginButton>
 
-        <SignUpButton>
+        <SignUpButton onPress={handleSignUp}>
           <ButtonText>Cadastro</ButtonText>
         </SignUpButton>
       </ButtonsContainer>
