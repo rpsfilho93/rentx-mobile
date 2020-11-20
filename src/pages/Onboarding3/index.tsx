@@ -13,6 +13,10 @@ const Onboarding3:React.FC = () => {
     navigate('Onboarding1');
   }, []);
 
+  const handleLogin = useCallback(() => {
+    navigate('Login');
+  }, []);
+
   return (
     <Container>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent"/>
@@ -22,7 +26,7 @@ const Onboarding3:React.FC = () => {
       <SubTitle>O que você deseja fazer?</SubTitle>
 
       <ButtonsContainer>
-        <LoginButton>
+        <LoginButton onPress={handleLogin}>
           <ButtonText>Login</ButtonText>
         </LoginButton>
 
