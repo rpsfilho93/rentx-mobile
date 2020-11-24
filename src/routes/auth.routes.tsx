@@ -10,10 +10,11 @@ import Login from '../pages/Login';
 import SignUp1 from '../pages/SignUp1';
 import SignUp2 from '../pages/SignUp2';
 import Success from '../pages/SuccessPage';
+import DatePicker from '../pages/DatePicker';
 
 const Auth = createStackNavigator();
 
-const AccountSaved = () => (<Success title='Feito!' subtitle='Agora suas infomações estão atualizadas.' />);
+const AccountSaved = () => (<Success title='Conta criada!' subtitle='Agora é só fazer login e aproveitar.' />);
 
 const AuthRoutes:React.FC = () => (
 
@@ -23,6 +24,8 @@ const AuthRoutes:React.FC = () => (
       cardStyle: { backgroundColor: '#fff' },
     }}
   >
+    <Auth.Screen name="DatePick" component={DatePicker} />
+
     <Auth.Screen name="Login" component={Login} />
 
     <Auth.Screen name="SplashScreen" component={SplashScreen} />

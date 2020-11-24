@@ -21,7 +21,7 @@ export const Subtitle = styled.Text`
   font-family: 'Inter_400Regular';
   color: #A8A8B3;
   text-align: center;
-  width: 180px;
+  width: 160px;
   line-height: 25px;
 
   margin-bottom: 56px;
