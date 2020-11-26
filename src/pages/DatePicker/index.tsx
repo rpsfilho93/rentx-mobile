@@ -1,6 +1,8 @@
 import React from 'react';
-import { Feather } from '@expo/vector-icons';
 import { StatusBar, View } from 'react-native';
+import Button from '../../components/Button';
+
+import Calendar from '../../components/Calendar';
 
 import {
   Container,
@@ -38,25 +40,8 @@ const DatePicker:React.FC = () => {
       </Header>
 
       <Content>
-        <MonthContainer>
-          <MonthYearText>Julho 2020</MonthYearText>
-
-          <View style={{ flexDirection: 'row' }}>
-            <Feather name='chevron-left' size={20} color='#7A7A80' style={{ marginRight: 16 }} />
-            <Feather name='chevron-right' size={20} color='#7A7A80' />
-          </View>
-        </MonthContainer>
-
-        <CalendarHeader>
-          <WeekDayText>SEG</WeekDayText>
-          <WeekDayText>TER</WeekDayText>
-          <WeekDayText>QUA</WeekDayText>
-          <WeekDayText>QUI</WeekDayText>
-          <WeekDayText>SEX</WeekDayText>
-          <WeekDayText>SAB</WeekDayText>
-          <WeekDayText>DOM</WeekDayText>
-        </CalendarHeader>
-
+        <Calendar />
+        <Button text='Confirmar' />
       </Content>
 
     </Container>

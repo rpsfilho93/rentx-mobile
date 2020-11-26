@@ -6,10 +6,10 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   width: 100%;
-  height: 292px;
+  height: 252px;
 
   background: #1B1B1F;
-  padding: 60px 24px 24px;
+  padding: 40px 24px 24px;
 `;
 
 export const Title = styled.Text`
@@ -42,7 +42,7 @@ export const DateInput = styled.View`
 
 export const Content = styled.View`
   flex: 1;
-  padding: 40px 24px;
+  padding: 10px 24px 8px;
 `;
 
 export const MonthContainer = styled.View`
