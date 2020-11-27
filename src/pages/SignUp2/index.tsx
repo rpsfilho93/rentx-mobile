@@ -27,7 +27,7 @@ const SignUp2:React.FC = () => {
   }, []);
 
   const handleSubmit = useCallback(() => {
-    navigate('AccountSaved');
+    navigate('SavedAccount');
   }, []);
 
   return (

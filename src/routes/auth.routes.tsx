@@ -11,10 +11,13 @@ import SignUp1 from '../pages/SignUp1';
 import SignUp2 from '../pages/SignUp2';
 import Success from '../pages/SuccessPage';
 import DatePicker from '../pages/DatePicker';
+import Profile from '../pages/Profile';
+import EditProfile from '../pages/EditProfile';
 
 const Auth = createStackNavigator();
 
-const AccountSaved = () => (<Success title='Conta criada!' subtitle='Agora é só fazer login e aproveitar.' />);
+const SavedAccount = () => (<Success title='Conta criada!' subtitle='Agora é só fazer login e aproveitar.' />);
+const SavedProfile = () => (<Success title='Feito!' subtitle='Agora suas informações estão atualizadas.' />);
 
 const AuthRoutes:React.FC = () => (
 
@@ -24,6 +27,9 @@ const AuthRoutes:React.FC = () => (
       cardStyle: { backgroundColor: '#fff' },
     }}
   >
+    <Auth.Screen name="EditProfile" component={EditProfile} />
+
+    <Auth.Screen name="Profile" component={Profile} />
     <Auth.Screen name="DatePick" component={DatePicker} />
 
     <Auth.Screen name="Login" component={Login} />
@@ -39,9 +45,13 @@ const AuthRoutes:React.FC = () => (
 
     <Auth.Screen
       name="AccountSaved"
-      component={AccountSaved}
+      component={SavedAccount}
     />
 
+    <Auth.Screen
+      name="SavedProfile"
+      component={SavedProfile}
+    />
   </Auth.Navigator>
 );
 

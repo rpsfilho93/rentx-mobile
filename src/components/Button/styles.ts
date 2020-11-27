@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 export const ButtonContainer = styled.TouchableOpacity`
   height: 56px;
   background: #DC1637;
-
+  width: 100%;
   align-items: center;
   justify-content: center;
 `;
