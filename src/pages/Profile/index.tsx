@@ -33,8 +33,8 @@ import {
   CarImage,
 } from './styles';
 
-const Profile:React.FC = () => {
-  const { navigate} = useNavigation();
+const Profile: React.FC = () => {
+  const { navigate } = useNavigation();
 
   const navigateEdit = useCallback(() => {
     navigate('EditProfile');
@@ -42,21 +42,23 @@ const Profile:React.FC = () => {
 
   return (
     <Container>
-      <StatusBar barStyle='light-content' />
+      <StatusBar barStyle="light-content" />
       <Header>
         <TitleContainer>
           <TouchableOpacity onPress={navigateEdit}>
-            <Feather name="edit-3" size={25} color={'#AEAEB3'} />
+            <Feather name="edit-3" size={25} color="#AEAEB3" />
           </TouchableOpacity>
           <TitleText>Perfil</TitleText>
-          <Feather name="power" size={25} color={'#AEAEB3'} />
+          <Feather name="power" size={25} color="#AEAEB3" />
         </TitleContainer>
       </Header>
 
       <Content>
         <ProfileContainer>
-          <Avatar source={{ uri: 'https://www.hypeness.com.br/1/2020/01/Pug_02.jpg' }}/>
-          <Name>Thiago{"\n"} Luchtenberg</Name>
+          <Avatar
+            source={{ uri: 'https://www.hypeness.com.br/1/2020/01/Pug_02.jpg' }}
+          />
+          <Name>Thiago Luchtenberg</Name>
         </ProfileContainer>
 
         <SchedulesContainer>
@@ -81,7 +83,7 @@ const Profile:React.FC = () => {
               <FuelIcon />
             </PriceContainer>
           </CarData>
-          <CarImage source={ Lancer }/>
+          <CarImage source={Lancer} />
         </Card>
       </Content>
     </Container>

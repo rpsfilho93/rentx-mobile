@@ -13,20 +13,31 @@ import Success from '../pages/SuccessPage';
 import DatePicker from '../pages/DatePicker';
 import Profile from '../pages/Profile';
 import EditProfile from '../pages/EditProfile';
+import Home from '../pages/Home';
 
 const Auth = createStackNavigator();
 
-const SavedAccount = () => (<Success title='Conta criada!' subtitle='Agora é só fazer login e aproveitar.' />);
-const SavedProfile = () => (<Success title='Feito!' subtitle='Agora suas informações estão atualizadas.' />);
+const SavedAccount = () => (
+  <Success
+    title="Conta criada!"
+    subtitle="Agora é só fazer login e aproveitar."
+  />
+);
+const SavedProfile = () => (
+  <Success
+    title="Feito!"
+    subtitle="Agora suas informações estão atualizadas."
+  />
+);
 
-const AuthRoutes:React.FC = () => (
-
+const AuthRoutes: React.FC = () => (
   <Auth.Navigator
     screenOptions={{
       headerShown: false,
       cardStyle: { backgroundColor: '#fff' },
     }}
   >
+    <Auth.Screen name="Home" component={Home} />
     <Auth.Screen name="EditProfile" component={EditProfile} />
 
     <Auth.Screen name="Profile" component={Profile} />
@@ -43,17 +54,10 @@ const AuthRoutes:React.FC = () => (
     <Auth.Screen name="SignUp1" component={SignUp1} />
     <Auth.Screen name="SignUp2" component={SignUp2} />
 
-    <Auth.Screen
-      name="AccountSaved"
-      component={SavedAccount}
-    />
+    <Auth.Screen name="AccountSaved" component={SavedAccount} />
 
-    <Auth.Screen
-      name="SavedProfile"
-      component={SavedProfile}
-    />
+    <Auth.Screen name="SavedProfile" component={SavedProfile} />
   </Auth.Navigator>
 );
 
 export default AuthRoutes;
-

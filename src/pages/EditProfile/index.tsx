@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import { StatusBar, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { StatusBar, View } from 'react-native';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -20,7 +20,7 @@ import {
 } from './styles';
 import PasswordInput from '../../components/PasswordInput';
 
-const EditProfile:React.FC = () => {
+const EditProfile: React.FC = () => {
   const [tab, setTab] = useState(true);
 
   const handleTabs = useCallback(() => {
@@ -29,10 +29,10 @@ const EditProfile:React.FC = () => {
 
   return (
     <Container>
-      <StatusBar barStyle='light-content' />
+      <StatusBar barStyle="light-content" />
       <Header>
         <TitleContainer>
-          <Feather name="chevron-left" size={25} color={'#AEAEB3'} />
+          <Feather name="chevron-left" size={25} color="#AEAEB3" />
           <TitleText>Editar Perfil</TitleText>
           <View />
         </TitleContainer>
@@ -40,31 +40,43 @@ const EditProfile:React.FC = () => {
 
       <Content>
         <AvatarContainer>
-          <Avatar source={{ uri: 'https://www.hypeness.com.br/1/2020/01/Pug_02.jpg' }}/>
+          <Avatar
+            source={{ uri: 'https://www.hypeness.com.br/1/2020/01/Pug_02.jpg' }}
+          />
           <CameraButton>
             <CameraIcon />
           </CameraButton>
         </AvatarContainer>
 
         <TabContainer>
-          <Tab selected={tab} onPress={handleTabs}>Dados</Tab>
-          <Tab selected={!tab} onPress={handleTabs}>Trocar senha</Tab>
+          <Tab selected={tab} onPress={handleTabs}>
+            Dados
+          </Tab>
+          <Tab selected={!tab} onPress={handleTabs}>
+            Trocar senha
+          </Tab>
         </TabContainer>
 
-        {tab ?
+        {tab ? (
           <>
-            <Input icon="user" containerStyle={{ marginBottom: 8 }}/>
+            <Input icon="user" containerStyle={{ marginBottom: 8 }} />
             <Input icon="mail" />
-            <Button text='Salvar Alterações' style={{ marginTop: 88 }}/>
+            <Button text="Salvar Alterações" style={{ marginTop: 88 }} />
           </>
-            :
+        ) : (
           <>
-            <PasswordInput placeholder='Senha Atual' containerStyle={{ marginBottom: 8}} />
-            <PasswordInput placeholder='Senha' containerStyle={{ marginBottom: 8}} />
-            <PasswordInput placeholder='Repetir Senha' />
-            <Button text='Salvar Alterações' style={{ marginTop: 24 }}/>
+            <PasswordInput
+              placeholder="Senha Atual"
+              containerStyle={{ marginBottom: 8 }}
+            />
+            <PasswordInput
+              placeholder="Senha"
+              containerStyle={{ marginBottom: 8 }}
+            />
+            <PasswordInput placeholder="Repetir Senha" />
+            <Button text="Salvar Alterações" style={{ marginTop: 24 }} />
           </>
-        }
+        )}
       </Content>
     </Container>
   );

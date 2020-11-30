@@ -8,7 +8,7 @@ export const Header = styled.View`
   width: 100%;
   height: 252px;
 
-  background: #1B1B1F;
+  background: #1b1b1f;
   padding: 40px 24px 24px;
 `;
 
@@ -29,12 +29,12 @@ export const DateContainer = styled.View`
 export const DateLabel = styled.Text`
   font-size: 10px;
   font-family: 'Archivo_500Medium';
-  color: #7A7A80;
+  color: #7a7a80;
 `;
 
 export const DateInput = styled.View`
   border-bottom-width: 1px;
-  border-color: #7A7A80;
+  border-color: #7a7a80;
 
   width: 104px;
   height: 18px;
@@ -57,7 +57,7 @@ export const MonthContainer = styled.View`
 export const MonthYearText = styled.Text`
   font-size: 20px;
   font-family: 'Archivo_600SemiBold';
-  color: #47474D;
+  color: #47474d;
 `;
 
 export const CalendarHeader = styled.View`
@@ -69,7 +69,7 @@ export const CalendarHeader = styled.View`
   padding-bottom: 8px;
 
   border-bottom-width: 1px;
-  border-color: #AEAEB3;
+  border-color: #aeaeb3;
 
   margin-bottom: 16px;
 `;
@@ -77,6 +77,5 @@ export const CalendarHeader = styled.View`
 export const WeekDayText = styled.Text`
   font-size: 10px;
   font-family: 'Archivo_600SemiBold';
-  color: #AEAEB3;
+  color: #aeaeb3;
 `;
-

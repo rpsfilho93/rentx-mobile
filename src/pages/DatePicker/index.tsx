@@ -12,38 +12,36 @@ import {
   DateLabel,
   DateInput,
   Content,
-  MonthContainer,
-  MonthYearText,
-  CalendarHeader,
-  WeekDayText,
- } from './style';
+} from './style';
 
-const DatePicker:React.FC = () => {
-
+const DatePicker: React.FC = () => {
   return (
     <Container>
-      <StatusBar barStyle='light-content' translucent/>
+      <StatusBar barStyle="light-content" translucent />
       <Header>
-        <Title>Escolha a{"\n"}data e encontre{"\n"}um carro.</Title>
-
+        <Title>
+          Escolha a{'\n'}
+          data e encontre
+          {'\n'}
+          um carro.
+        </Title>
         <DateContainer>
-        <View>
-          <DateLabel>DE</DateLabel>
-          <DateInput />
-        </View>
+          <View>
+            <DateLabel>DE</DateLabel>
+            <DateInput />
+          </View>
 
-        <View>
-          <DateLabel>ATÉ</DateLabel>
-          <DateInput />
-        </View>
-      </DateContainer>
+          <View>
+            <DateLabel>ATÉ</DateLabel>
+            <DateInput />
+          </View>
+        </DateContainer>
       </Header>
 
       <Content>
         <Calendar />
-        <Button text='Confirmar' />
+        <Button text="Confirmar" />
       </Content>
-
     </Container>
   );
 };

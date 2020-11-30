@@ -3,6 +3,7 @@ import { KeyboardAvoidingView, Platform, StatusBar, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import PasswordInput from '../../components/PasswordInput';
@@ -16,9 +17,8 @@ import {
   SmallText,
   GoBackButton,
 } from './styles';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
-const Login:React.FC = () => {
+const Login: React.FC = () => {
   const { navigate } = useNavigation();
 
   const handleGoBack = useCallback(() => {
@@ -31,19 +31,26 @@ const Login:React.FC = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{ flex: 1 }}
-        >
-        <Container >
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ flex: 1 }}
+      >
+        <Container>
           <GoBackButton onPress={handleGoBack}>
-            <Feather name='chevron-left' size={20} color="#AEAEB3" style={{ alignSelf: 'flex-start'}} />
+            <Feather
+              name="chevron-left"
+              size={20}
+              color="#AEAEB3"
+              style={{ alignSelf: 'flex-start' }}
+            />
           </GoBackButton>
 
           <Title>Estamos quase lá.</Title>
-          <SubTitle>Faça seu login para começar uma experiência incrível.</SubTitle>
+          <SubTitle>
+            Faça seu login para começar uma experiência incrível.
+          </SubTitle>
 
           <Input
-            icon='mail'
+            icon="mail"
             placeholder="E-mail"
             keyboardType="email-address"
             autoCorrect={false}
@@ -65,8 +72,7 @@ const Login:React.FC = () => {
             </TouchableOpacity>
           </RememberContainer>
 
-          <Button text='Login' />
-
+          <Button text="Login" />
         </Container>
       </ScrollView>
     </KeyboardAvoidingView>
