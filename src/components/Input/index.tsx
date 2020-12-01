@@ -6,17 +6,17 @@ import { Container, IconContainer, TextContainer } from './styles';
 
 interface InputProps extends TextInputProps {
   icon: string;
-  containerStyle?: { [key: string]: string | number};
+  containerStyle?: { [key: string]: string | number };
 }
 
-const Input:React.FC<InputProps> = ({ icon, containerStyle, ...rest }) => {
+const Input: React.FC<InputProps> = ({ icon, containerStyle, ...rest }) => {
   return (
     <Container style={containerStyle}>
       <IconContainer>
-        <Feather name={icon} size={20} color='#7A7A80'/>
+        <Feather name={icon} size={20} color="#7A7A80" />
       </IconContainer>
 
-      <TextContainer placeholderTextColor='#AEAEB3' {...rest}/>
+      <TextContainer placeholderTextColor="#AEAEB3" {...rest} />
     </Container>
   );
 };

@@ -14,6 +14,8 @@ import DatePicker from '../pages/DatePicker';
 import Profile from '../pages/Profile';
 import EditProfile from '../pages/EditProfile';
 import Home from '../pages/Home';
+import List from '../pages/List';
+import Appointments from '../pages/Appointments';
 
 const Auth = createStackNavigator();
 
@@ -37,6 +39,8 @@ const AuthRoutes: React.FC = () => (
       cardStyle: { backgroundColor: '#fff' },
     }}
   >
+    <Auth.Screen name="Appointments" component={Appointments} />
+    <Auth.Screen name="List" component={List} />
     <Auth.Screen name="Home" component={Home} />
     <Auth.Screen name="EditProfile" component={EditProfile} />
 

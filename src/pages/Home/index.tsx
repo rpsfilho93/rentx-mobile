@@ -47,6 +47,7 @@ const Home: React.FC = () => {
         </ListHeader>
 
         <Card brand="Lamborghini" name="Huracan" image={Lambo} price={580} />
+        <Card brand="Lamborghini" name="Huracan" image={Lambo} price={580} />
       </Content>
     </Container>
   );

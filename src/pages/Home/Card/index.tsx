@@ -36,7 +36,7 @@ const Card: React.FC<CarProps> = ({ brand, image, name, price }) => {
           <PriceLabel>AO DIA</PriceLabel>
           <PriceText>
             R$
-            {price}
+            {`${` ${price}`}`}
           </PriceText>
         </PriceContainer>
       </Header>
