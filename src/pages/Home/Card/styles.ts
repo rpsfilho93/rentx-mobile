@@ -35,6 +35,7 @@ export const BrandText = styled.Text`
   font-size: 10px;
   color: #aeaeb3;
 `;
+
 export const NameText = styled.Text`
   font-family: 'Archivo_500Medium';
   font-size: 20px;

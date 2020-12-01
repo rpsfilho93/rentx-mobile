@@ -2,7 +2,6 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import SplashScreen from '../pages/SplashScreen';
-
 import Onboarding1 from '../pages/Onboarding1';
 import Onboarding2 from '../pages/Onboarding2';
 import Onboarding3 from '../pages/Onboarding3';
@@ -16,6 +15,7 @@ import EditProfile from '../pages/EditProfile';
 import Home from '../pages/Home';
 import List from '../pages/List';
 import Appointments from '../pages/Appointments';
+import Details from '../pages/Details';
 
 const Auth = createStackNavigator();
 
@@ -39,6 +39,7 @@ const AuthRoutes: React.FC = () => (
       cardStyle: { backgroundColor: '#fff' },
     }}
   >
+    <Auth.Screen name="Details" component={Details} />
     <Auth.Screen name="Appointments" component={Appointments} />
     <Auth.Screen name="List" component={List} />
     <Auth.Screen name="Home" component={Home} />

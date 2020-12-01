@@ -19,8 +19,7 @@ import {
   InactiveSquare,
 } from './styles';
 
-
-const SignUp1:React.FC = () => {
+const SignUp1: React.FC = () => {
   const { goBack, navigate } = useNavigation();
 
   const handleGoBack = useCallback(() => {
@@ -37,15 +36,24 @@ const SignUp1:React.FC = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{ flex: 1 }}
-        >
-        <Container >
-          <StatusBar barStyle="dark-content" translucent backgroundColor="transparent"/>
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ flex: 1 }}
+      >
+        <Container>
+          <StatusBar
+            barStyle="dark-content"
+            translucent
+            backgroundColor="transparent"
+          />
 
           <Header>
             <GoBackButton onPress={handleGoBack}>
-              <Feather name='chevron-left' size={20} color="#AEAEB3" style={{ alignSelf: 'flex-start'}} />
+              <Feather
+                name="chevron-left"
+                size={20}
+                color="#AEAEB3"
+                style={{ alignSelf: 'flex-start' }}
+              />
             </GoBackButton>
 
             <PageIndicator>
@@ -60,7 +68,7 @@ const SignUp1:React.FC = () => {
           <FormTitle>1. Dados</FormTitle>
 
           <Input
-            icon='user'
+            icon="user"
             placeholder="Nome"
             autoCorrect={false}
             returnKeyType="next"
@@ -68,7 +76,7 @@ const SignUp1:React.FC = () => {
           />
 
           <Input
-            icon='mail'
+            icon="mail"
             placeholder="E-mail"
             keyboardType="email-address"
             autoCorrect={false}
@@ -77,8 +85,7 @@ const SignUp1:React.FC = () => {
             containerStyle={{ marginBottom: 24 }}
           />
 
-          <Button text='Próximo' onPress={handleSubmit} />
-
+          <Button text="Próximo" onPress={handleSubmit} />
         </Container>
       </ScrollView>
     </KeyboardAvoidingView>

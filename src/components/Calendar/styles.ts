@@ -17,7 +17,7 @@ export const DateContainer = styled.View`
 export const MonthYearText = styled.Text`
   font-size: 20px;
   font-family: 'Archivo_600SemiBold';
-  color: #47474D;
+  color: #47474d;
 `;
 
 export const CalendarHeader = styled.View`
@@ -29,7 +29,7 @@ export const CalendarHeader = styled.View`
   padding: 0px 8px 8px;
 
   border-bottom-width: 1px;
-  border-color: #AEAEB3;
+  border-color: #aeaeb3;
 
   margin-bottom: 6px;
 `;
@@ -37,13 +37,12 @@ export const CalendarHeader = styled.View`
 export const WeekDayText = styled.Text`
   font-size: 10px;
   font-family: 'Archivo_600SemiBold';
-  color: #AEAEB3;
+  color: #aeaeb3;
   text-align: center;
   width: 32px;
 `;
 
-export const MonthContainer = styled(FlatList as new () => FlatList<Date>)`
-`;
+export const MonthContainer = styled(FlatList as new () => FlatList<Date>)``;
 
 export const DayContainer = styled.TouchableOpacity<{ selected: boolean }>`
   flex-grow: 1;
@@ -53,11 +52,11 @@ export const DayContainer = styled.TouchableOpacity<{ selected: boolean }>`
 
   width: 40px;
   height: 40px;
-  background: ${props => props.selected ? "#DC1637" : "#fff" };
+  background: ${props => (props.selected ? '#DC1637' : '#fff')};
 `;
 
 export const DayText = styled.Text`
   font-size: 15px;
   font-family: 'Inter_400Regular';
-  color: #47474D;
+  color: #47474d;
 `;
