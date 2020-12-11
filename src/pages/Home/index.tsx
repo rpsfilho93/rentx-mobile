@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { StatusBar, View } from 'react-native';
+import { format } from 'date-fns';
+import { useNavigation } from '@react-navigation/native';
+import { pt } from 'date-fns/locale';
 
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Card from './Card';
 import Lambo from '../../assets/Lambo.png';
+import { useDateRange } from '../../hooks/dateRange';
 
 import {
   Container,
   Header,
   DateLabel,
   DateText,
+  EmptyDate,
   ChevronDown,
   Content,
   ListHeader,
@@ -20,20 +26,33 @@ import {
 } from './styles';
 
 const Home: React.FC = () => {
+  const { start, end } = useDateRange();
+  const { navigate } = useNavigation();
+
+  const formatDate = useCallback((date: Date) => {
+    return format(date, 'dd MMMM yyyy', { locale: pt });
+  }, []);
+
+  const handleChevronDown = useCallback(() => {
+    navigate('DatePicker');
+  }, [navigate]);
+
   return (
     <Container>
       <StatusBar barStyle="light-content" />
       <Header>
         <View>
           <DateLabel>DE</DateLabel>
-          <DateText>16 Julho 2020</DateText>
+          {start ? <DateText>{formatDate(start)}</DateText> : <EmptyDate />}
         </View>
 
-        <ChevronDown />
+        <TouchableOpacity onPress={handleChevronDown} style={{ marginTop: 24 }}>
+          <ChevronDown />
+        </TouchableOpacity>
 
         <View>
           <DateLabel>ATÉ</DateLabel>
-          <DateText>20 Julho 2020</DateText>
+          {end ? <DateText>{formatDate(end)}</DateText> : <EmptyDate />}
         </View>
       </Header>
 

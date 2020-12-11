@@ -46,7 +46,9 @@
           "ts": "never",
           "tsx": "never"
         }
-      ]
+      ],
+      "import/no-extraneous-dependencies": "off",
+      "import/no-duplicates": "off"
     },
     "settings": {
       "import/resolver": {

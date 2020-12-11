@@ -6,10 +6,10 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   width: 100%;
-  height: 252px;
+  height: 236px;
 
   background: #1b1b1f;
-  padding: 40px 24px 24px;
+  padding: 40px 24px 8px;
 `;
 
 export const Title = styled.Text`
@@ -32,7 +32,13 @@ export const DateLabel = styled.Text`
   color: #7a7a80;
 `;
 
-export const DateInput = styled.View`
+export const DateText = styled.Text`
+  font-family: 'Inter_500Medium';
+  font-size: 15px;
+  color: #ffffff;
+`;
+
+export const EmptyDate = styled.View`
   border-bottom-width: 1px;
   border-color: #7a7a80;
 
@@ -42,7 +48,7 @@ export const DateInput = styled.View`
 
 export const Content = styled.View`
   flex: 1;
-  padding: 10px 24px 8px;
+  padding: 40px 24px 8px;
 `;
 
 export const MonthContainer = styled.View`
@@ -50,8 +56,6 @@ export const MonthContainer = styled.View`
 
   align-items: center;
   justify-content: space-between;
-
-  margin-bottom: 16px;
 `;
 
 export const MonthYearText = styled.Text`

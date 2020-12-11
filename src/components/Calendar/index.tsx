@@ -1,7 +1,8 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Feather } from '@expo/vector-icons';
-import { TouchableOpacityProps, View } from 'react-native';
-import pt, {
+import { View } from 'react-native';
+import { pt } from 'date-fns/locale';
+import {
   format,
   startOfMonth,
   endOfMonth,
@@ -9,9 +10,10 @@ import pt, {
   getDay,
   subDays,
   addDays,
-  getMonth,
   addMonths,
   subMonths,
+  isBefore,
+  isAfter,
 } from 'date-fns';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -25,6 +27,15 @@ import {
   MonthContainer,
   DayText,
 } from './styles';
+
+interface CalendarPayload {
+  start?: Date | undefined;
+  end?: Date | undefined;
+}
+
+interface CalendarProps {
+  onChange(payload: CalendarPayload): void;
+}
 
 const addDaysOfLastMonth = (days: Date[]) => {
   if (getDay(days[0]) !== 0) {
@@ -40,33 +51,10 @@ const addDaysOfNextMonth = (daysInMonth: Date[]) => {
   }
 };
 
-interface DayProps extends TouchableOpacityProps {
-  date: Date;
-  selected?: boolean;
-}
-
-const Day: React.FC<DayProps> = ({ date, selected = false, disabled }) => {
-  const [isSelected, setIsSelected] = useState(selected);
-
-  const color = useMemo(() => {
-    return disabled ? '#AEAEB3' : isSelected ? '#fff' : '#47474D';
-  }, [disabled, isSelected]);
-
-  const handlePress = useCallback(() => {
-    if (!disabled) setIsSelected(!isSelected);
-  }, [isSelected]);
-
-  return (
-    <DayContainer onPress={handlePress} selected={isSelected}>
-      <DayText style={{ color }}>{format(date, 'd')}</DayText>
-    </DayContainer>
-  );
-};
-
-const Calendar: React.FC = () => {
+const Calendar: React.FC<CalendarProps> = ({ onChange }) => {
   const [date, setDate] = useState<Date>(startOfMonth(new Date()));
-  const [from, setFrom] = useState<number>(-1);
-  const [to, setTo] = useState<number>(-1);
+  const [startDate, setStartDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Date>();
 
   const daysInMonth: Date[] = useMemo(() => {
     const firstDay = startOfMonth(date);
@@ -85,20 +73,6 @@ const Calendar: React.FC = () => {
     return monthYear.charAt(0).toUpperCase() + monthYear.slice(1);
   }, [date]);
 
-  const selectDay = useCallback((index: number) => {
-    console.log(index);
-    if (!from && !to) setFrom(index);
-
-    if (from && !to) setTo(index);
-
-    if (from && to) {
-      if (index < to) setFrom(index);
-      if (index > to) setTo(index);
-    }
-
-    console.log([from, to]);
-  }, []);
-
   const handleLastMonth = useCallback(() => {
     setDate(subMonths(date, 1));
   }, [date]);
@@ -106,6 +80,66 @@ const Calendar: React.FC = () => {
   const handleNextMonth = useCallback(() => {
     setDate(addMonths(date, 1));
   }, [date]);
+
+  const handlePressDay = useCallback(
+    (selected: Date) => {
+      if (!startDate) {
+        setStartDate(selected);
+        onChange({ start: selected });
+        return;
+      }
+
+      if (!endDate) {
+        if (isBefore(startDate, selected)) {
+          setEndDate(selected);
+          onChange({ start: startDate, end: selected });
+          return;
+        }
+        setEndDate(startDate);
+        setStartDate(selected);
+        onChange({ start: selected, end: startDate });
+        return;
+      }
+
+      if (startDate && endDate) {
+        setStartDate(selected);
+        setEndDate(undefined);
+        onChange({ start: selected });
+      }
+    },
+    [startDate, endDate, onChange],
+  );
+
+  const renderDay = useCallback(
+    (day: Date) => {
+      const disabled = isBefore(day, new Date());
+      const selected = day === startDate || day === endDate;
+      const inRange =
+        startDate &&
+        endDate &&
+        isAfter(day, startDate) &&
+        isBefore(day, endDate);
+
+      return (
+        <DayContainer
+          selected={!disabled && selected}
+          inRange={!disabled && inRange}
+          onPress={() => {
+            if (!disabled) handlePressDay(day);
+          }}
+        >
+          <DayText
+            disabled={disabled}
+            selected={!disabled && selected}
+            inRange={!disabled && inRange}
+          >
+            {format(day, 'd')}
+          </DayText>
+        </DayContainer>
+      );
+    },
+    [handlePressDay, startDate, endDate],
+  );
 
   return (
     <Container>
@@ -138,16 +172,14 @@ const Calendar: React.FC = () => {
         <WeekDayText>SAB</WeekDayText>
       </CalendarHeader>
 
-      <MonthContainer
-        data={daysInMonth}
-        keyExtractor={item => item.toDateString()}
-        numColumns={7}
-        renderItem={({ item, index }: { item: Date; index: number }) => {
-          return (
-            <Day date={item} disabled={getMonth(item) !== getMonth(date)} />
-          );
-        }}
-      />
+      {(!startDate || !endDate || (startDate && endDate)) && (
+        <MonthContainer
+          data={daysInMonth}
+          keyExtractor={item => item.toDateString()}
+          numColumns={7}
+          renderItem={({ item }: { item: Date }) => renderDay(item)}
+        />
+      )}
     </Container>
   );
 };

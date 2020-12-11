@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+import { Feather } from '@expo/vector-icons';
 import { StatusBar, View } from 'react-native';
+import { format } from 'date-fns';
+import { pt } from 'date-fns/locale';
+
+import { useNavigation } from '@react-navigation/native';
 import Button from '../../components/Button';
 
 import Calendar from '../../components/Calendar';
+import { useDateRange } from '../../hooks/dateRange';
 
 import {
   Container,
@@ -10,37 +16,74 @@ import {
   Title,
   DateContainer,
   DateLabel,
-  DateInput,
+  DateText,
+  EmptyDate,
   Content,
 } from './style';
 
 const DatePicker: React.FC = () => {
+  const [startDate, setStartDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Date>();
+
+  const { setDateRange } = useDateRange();
+  const { navigate } = useNavigation();
+
+  const handleOnCalendarChange = useCallback(
+    (start: Date | undefined, end: Date | undefined) => {
+      setStartDate(start);
+      setEndDate(end);
+    },
+    [],
+  );
+
+  const formatDate = useCallback((date: Date) => {
+    return format(date, 'dd MMMM yyyy', { locale: pt });
+  }, []);
+
+  const handleConfirmButton = useCallback(() => {
+    if (startDate && endDate) {
+      setDateRange({ start: startDate, end: endDate });
+      navigate('AppTabs');
+    }
+  }, [startDate, endDate, navigate, setDateRange]);
+
   return (
     <Container>
       <StatusBar barStyle="light-content" translucent />
       <Header>
-        <Title>
-          Escolha a{'\n'}
-          data e encontre
-          {'\n'}
-          um carro.
-        </Title>
+        <Title>Escolha a data e encontre um carro.</Title>
         <DateContainer>
           <View>
             <DateLabel>DE</DateLabel>
-            <DateInput />
+            {startDate ? (
+              <DateText>{formatDate(startDate)}</DateText>
+            ) : (
+              <EmptyDate />
+            )}
           </View>
+
+          <Feather name="arrow-right" size={20} color="#7A7A80" />
 
           <View>
             <DateLabel>ATÉ</DateLabel>
-            <DateInput />
+            {endDate ? (
+              <DateText>{formatDate(endDate)}</DateText>
+            ) : (
+              <EmptyDate />
+            )}
           </View>
         </DateContainer>
       </Header>
 
       <Content>
-        <Calendar />
-        <Button text="Confirmar" />
+        <Calendar
+          onChange={({ start, end }) => handleOnCalendarChange(start, end)}
+        />
+        <Button
+          disabled={!startDate || !endDate}
+          text="Confirmar"
+          onPress={handleConfirmButton}
+        />
       </Content>
     </Container>
   );

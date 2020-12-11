@@ -31,13 +31,19 @@ export const DateText = styled.Text`
   color: #fff;
 `;
 
+export const EmptyDate = styled.View`
+  border-bottom-width: 1px;
+  border-color: #7a7a80;
+
+  width: 104px;
+  height: 18px;
+`;
+
 export const ChevronDown = styled(Feather).attrs({
   name: 'chevron-down',
   size: 22,
   color: '#7a7a80',
-})`
-  margin-top: 6%;
-`;
+})``;
 
 export const Content = styled.View`
   padding: 0px 16px;

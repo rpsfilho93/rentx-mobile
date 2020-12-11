@@ -1,5 +1,16 @@
 import { FlatList } from 'react-native-gesture-handler';
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
+
+interface DayContainerProps {
+  selected?: boolean;
+  inRange?: boolean;
+}
+
+interface DayTextProps {
+  selected?: boolean;
+  disabled?: boolean;
+  inRange?: boolean;
+}
 
 export const Container = styled.View`
   flex: 1;
@@ -42,9 +53,11 @@ export const WeekDayText = styled.Text`
   width: 32px;
 `;
 
-export const MonthContainer = styled(FlatList as new () => FlatList<Date>)``;
+export const MonthContainer = styled(FlatList as new () => FlatList<Date>)<
+  DayTextProps
+>``;
 
-export const DayContainer = styled.TouchableOpacity<{ selected: boolean }>`
+export const DayContainer = styled.TouchableOpacity<DayContainerProps>`
   flex-grow: 1;
   flex-basis: 0;
   align-items: center;
@@ -52,11 +65,36 @@ export const DayContainer = styled.TouchableOpacity<{ selected: boolean }>`
 
   width: 40px;
   height: 40px;
-  background: ${props => (props.selected ? '#DC1637' : '#fff')};
+  background: #fff;
+  ${props =>
+    props.inRange &&
+    css`
+      background: #fdedef;
+    `};
+  ${props =>
+    props.selected &&
+    css`
+      background: #dc1637;
+    `};
 `;
 
-export const DayText = styled.Text`
+export const DayText = styled.Text<DayTextProps>`
   font-size: 15px;
   font-family: 'Inter_400Regular';
   color: #47474d;
+  ${props =>
+    props.inRange &&
+    css`
+      color: #dc1637;
+    `};
+  ${props =>
+    props.disabled &&
+    css`
+      color: #aeaeb3;
+    `};
+  ${props =>
+    props.selected &&
+    css`
+      color: #fff;
+    `};
 `;
