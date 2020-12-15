@@ -1,15 +1,17 @@
-import React, { createContext, useCallback, useState, useContext } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useState,
+  useContext,
+  useEffect,
+} from 'react';
 import api from '../services/api';
 
 interface User {
   id: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
-  avatar: string;
-  avatar_url: string;
-  whatsapp: string;
-  bio: string;
+  image_url: string | null;
 }
 
 interface AuthState {
@@ -20,7 +22,7 @@ interface AuthState {
 interface SignInData {
   email: string;
   password: string;
-  remember: boolean;
+  remember?: boolean;
 }
 
 interface AuthContextData {
@@ -43,18 +45,48 @@ export const AuthProvider: React.FC = ({ children }) => {
       return { token, user: JSON.parse(user) };
     }
     */
+    const user: User = {
+      id: '4b69add1-2fb1-4101-a81d-d0facdbdb4c6',
+      name: 'Ricardo Filho',
+      email: 'rpsfilho93@gmail.com',
+      image_url: null,
+    };
 
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDc5NTYxNjMsImV4cCI6MTYwODA0MjU2Mywic3ViIjoiNGI2OWFkZDEtMmZiMS00MTAxLWE4MWQtZDBmYWNkYmRiNGM2In0.cLt7YJr8YuwOgR83tLXRdu0M1UEn8q64edcbinv_Q0c';
+
+    api.defaults.headers.Authorization = `Bearer ${token}`;
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async ({ email, password, remember }) => {
+  /* useEffect(() => {
+    async function sign() {
+      const response = await api.post('/sessions', {
+        email: 'rpsfilho93@gmail.com',
+        password: '123123',
+      });
+
+      const { user, token } = response.data;
+
+      console.log(user, token);
+
+      api.defaults.headers.Authorization = `Bearer ${token}`;
+
+      setData({ user, token });
+    }
+
+    sign();
+  }, []);
+  */
+
+  const signIn = useCallback(async ({ email, password, remember = false }) => {
     const response = await api.post('/sessions', {
       email,
       password,
     });
 
     const { token, user } = response.data;
-
+    console.log(token, user);
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
     if (remember) {

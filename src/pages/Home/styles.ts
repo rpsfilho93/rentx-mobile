@@ -1,6 +1,7 @@
 import { FlatList } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
+import Car from '../../DTOS/Car';
 
 export const Container = styled.View`
   height: 100%;
@@ -47,6 +48,7 @@ export const ChevronDown = styled(Feather).attrs({
 
 export const Content = styled.View`
   padding: 0px 16px;
+  background: #fff;
 `;
 export const ListHeader = styled.View`
   padding: 24px 8px;
@@ -81,4 +83,4 @@ export const FilterIcon = styled(Feather).attrs({
   color: '#47474D',
 })``;
 
-export const CarList = styled(FlatList as new () => FlatList<Date>)``;
+export const CarList = styled(FlatList as new () => FlatList<Car>)``;

@@ -25,8 +25,8 @@ const Tabs: React.FC = () => {
         },
         iconStyle: {
           flex: 0,
-          width: 20,
-          height: 20,
+          width: 26,
+          height: 22,
         },
         labelStyle: {
           fontFamily: 'Archivo_700Bold',
@@ -60,8 +60,8 @@ const Tabs: React.FC = () => {
           tabBarIcon: ({ color, size, focused }) => {
             return (
               <Ionicons
-                name={Platform.OS === 'ios' ? 'ios-car' : 'md-car'}
-                size={32}
+                name={Platform.OS === 'ios' ? 'ios-car' : 'md-car-outline'}
+                size={30}
                 color={focused ? '#DC1637' : color}
               />
             );

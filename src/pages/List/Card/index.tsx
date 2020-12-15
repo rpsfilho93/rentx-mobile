@@ -1,5 +1,6 @@
+import { differenceInDays } from 'date-fns';
 import React from 'react';
-import Lancer from '../../../assets/Lancer.png';
+import { Car } from '..';
 
 import {
   Container,
@@ -14,21 +15,28 @@ import {
   CarImage,
 } from './styles';
 
-const Card: React.FC = () => {
+interface CardProps {
+  car: Car;
+  start: Date;
+  end: Date;
+}
+
+const Card: React.FC<CardProps> = ({ car, start, end }) => {
+  const interval = differenceInDays(end, start);
+
   return (
     <Container>
       <CarData>
         <CarNameContainer>
-          <CarBrand>MITSUBISHI</CarBrand>
-          <CarName>Lancer Evo X</CarName>
+          <CarBrand>{car.brand.toUpperCase()}</CarBrand>
+          <CarName>{car.name}</CarName>
         </CarNameContainer>
         <PriceContainer>
-          <PriceLabel>POR 3 DIAS</PriceLabel>
-          <PriceText>R$ 290</PriceText>
+          <PriceLabel>{`POR ${interval} DIAS`}</PriceLabel>
+          <PriceText>{`R$ ${car.daily_value * interval}`}</PriceText>
           <FuelIcon />
         </PriceContainer>
       </CarData>
-      <CarImage source={Lancer} />
     </Container>
   );
 };

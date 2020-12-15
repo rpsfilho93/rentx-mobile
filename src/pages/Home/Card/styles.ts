@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
 import { ViewProps } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { CarImageDTO } from '../../../DTOS/Car';
 
 interface DotProps extends ViewProps {
   active?: boolean;
@@ -8,10 +10,10 @@ interface DotProps extends ViewProps {
 
 export const Container = styled.View`
   width: 100%;
-  aspect-ratio: 1.42;
+  aspect-ratio: 1.1;
   background: #f4f5f6;
 
-  padding: 24px;
+  padding: 24px 20px;
 
   align-items: center;
   justify-content: center;
@@ -56,10 +58,22 @@ export const PriceText = styled.Text`
   color: #dc1637;
 `;
 
-export const ProductImage = styled.Image`
-  align-self: center;
-  height: 65%;
-  aspect-ratio: 2.22;
+export const ImagesContainer = styled(
+  FlatList as new () => FlatList<CarImageDTO>,
+)``;
+
+export const ImageCanvas = styled.View`
+  width: 282px;
+  aspect-ratio: 1.8;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+  padding-left: 8px;
+`;
+
+export const CarImage = styled.Image`
+  width: 100%;
+  aspect-ratio: 2.3;
 `;
 
 export const FuelIcon = styled(Feather).attrs({
@@ -77,6 +91,7 @@ export const Footer = styled.View`
 
 export const PageIndicator = styled.View`
   flex-direction: row;
+  jus
 `;
 
 export const Dot = styled.View<DotProps>`

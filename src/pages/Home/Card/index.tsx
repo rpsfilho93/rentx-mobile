@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { Feather, SimpleLineIcons, Ionicons } from '@expo/vector-icons';
+import { View, ViewToken } from 'react-native';
+import CarDTO, { CarImageDTO } from '../../../DTOS/Car';
 
 import {
   Container,
@@ -9,21 +12,55 @@ import {
   PriceContainer,
   PriceLabel,
   PriceText,
-  ProductImage,
+  ImagesContainer,
+  ImageCanvas,
+  CarImage,
   FuelIcon,
   Footer,
   PageIndicator,
   Dot,
 } from './styles';
 
-interface CarProps {
-  brand: string;
-  name: string;
-  price: number;
-  image: string;
+interface CardProps {
+  car: CarDTO;
 }
 
-const Card: React.FC<CarProps> = ({ brand, image, name, price }) => {
+const fuelIconStyles = {
+  gas: <Feather name="droplet" size={25} color="#AEAEB3" />,
+  eletric: <SimpleLineIcons name="energy" size={25} color="#AEAEB3" />,
+  bio: <Ionicons name="md-leaf-outline" size={25} color="#AEAEB3" />,
+};
+
+const Card: React.FC<CardProps> = ({ car }) => {
+  const fuelIcon = useMemo<string>(() => {
+    const fuelSpec = car.specs.find(spec => spec.name === 'Fuel');
+
+    return fuelSpec ? fuelSpec.icon : '';
+  }, [car.specs]);
+
+  const [currentImage, setCurrentImage] = useState(0);
+  const { name, brand, daily_value, CarImage: images } = car;
+
+  const renderCarImage = useCallback((image: CarImageDTO) => {
+    return (
+      <ImageCanvas>
+        <CarImage source={{ uri: image.image_url }} />
+      </ImageCanvas>
+    );
+  }, []);
+
+  const onViewableItemsChanged = useRef(
+    ({
+      changed,
+      viewableItems,
+    }: {
+      changed: ViewToken[];
+      viewableItems: ViewToken[];
+    }) => {
+      setCurrentImage(viewableItems[viewableItems.length - 1].index || 0);
+    },
+  );
+
   return (
     <Container>
       <Header>
@@ -34,22 +71,38 @@ const Card: React.FC<CarProps> = ({ brand, image, name, price }) => {
 
         <PriceContainer>
           <PriceLabel>AO DIA</PriceLabel>
-          <PriceText>
-            R$
-            {`${` ${price}`}`}
-          </PriceText>
+          <PriceText>{`R$ ${daily_value}`}</PriceText>
         </PriceContainer>
       </Header>
 
-      <ProductImage source={image} />
+      <ImagesContainer
+        data={images}
+        keyExtractor={image => image.name}
+        horizontal
+        getItemLayout={(data, index) => ({
+          length: 290,
+          offset: 290 * index,
+          index,
+        })}
+        snapToInterval={290}
+        decelerationRate="normal"
+        bounces={false}
+        renderItem={({ item }) => renderCarImage(item)}
+        onViewableItemsChanged={onViewableItemsChanged.current}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ marginVertical: 8, alignItems: 'center' }}
+      />
 
       <Footer>
-        <FuelIcon />
+        {fuelIcon ? fuelIconStyles[fuelIcon] : fuelIconStyles.gas}
         <PageIndicator>
-          <Dot active />
-          <Dot />
-          <Dot />
-          <Dot />
+          {images.map((image, order) => {
+            return order === currentImage ? (
+              <Dot key={image.name} active />
+            ) : (
+              <Dot key={image.name} />
+            );
+          })}
         </PageIndicator>
       </Footer>
     </Container>

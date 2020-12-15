@@ -1,4 +1,6 @@
 import styled from 'styled-components/native';
+import { FlatList } from 'react-native-gesture-handler';
+import Car from '../../DTOS/Car';
 
 export const Container = styled.View`
   width: 100%;
@@ -37,3 +39,5 @@ export const Content = styled.View`
 `;
 
 export const SearchInput = styled.View``;
+
+export const CarList = styled(FlatList as new () => FlatList<Car>)``;
