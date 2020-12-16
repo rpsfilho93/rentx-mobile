@@ -49,6 +49,7 @@ export const ChevronDown = styled(Feather).attrs({
 export const Content = styled.View`
   padding: 0px 16px;
   background: #fff;
+  height: 100%;
 `;
 export const ListHeader = styled.View`
   padding: 24px 8px;
@@ -84,3 +85,13 @@ export const FilterIcon = styled(Feather).attrs({
 })``;
 
 export const CarList = styled(FlatList as new () => FlatList<Car>)``;
+
+export const BackgroundOpacity = styled.TouchableOpacity`
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(2, 2, 2, 0.8);
+  width: 100%;
+  height: 100%;
+  justify-content: flex-end;
+`;

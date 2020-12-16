@@ -15,7 +15,6 @@ import {
   ImagesContainer,
   ImageCanvas,
   CarImage,
-  FuelIcon,
   Footer,
   PageIndicator,
   Dot,

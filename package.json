@@ -36,6 +36,7 @@
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "~2.15.0",
     "react-native-web": "~0.13.12",
+    "rn-range-slider": "^2.0.3",
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
