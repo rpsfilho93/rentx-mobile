@@ -17,8 +17,25 @@ import List from '../pages/List';
 import Appointments from '../pages/Appointments';
 import Details from '../pages/Details';
 import AppTabs from './AppTabs';
+import CarDTO from '../DTOS/Car';
 
-const Auth = createStackNavigator();
+export type AuthParamList = {
+  DatePicker: undefined;
+  AppTabs: undefined;
+  EditProfile: undefined;
+  Login: undefined;
+  SplashScreen: undefined;
+  Details: { car: CarDTO };
+  Onboarding1: undefined;
+  Onboarding2: undefined;
+  Onboarding3: undefined;
+  SignUp1: undefined;
+  SignUp2: undefined;
+  AccountSaved: undefined;
+  SavedProfile: undefined;
+};
+
+const Auth = createStackNavigator<AuthParamList>();
 
 const SavedAccount = () => (
   <Success
@@ -44,12 +61,13 @@ const AuthRoutes: React.FC = () => (
 
     <Auth.Screen name="AppTabs" component={AppTabs} />
 
-    <Auth.Screen name="Details" component={Details} />
     <Auth.Screen name="EditProfile" component={EditProfile} />
 
     <Auth.Screen name="Login" component={Login} />
 
     <Auth.Screen name="SplashScreen" component={SplashScreen} />
+
+    <Auth.Screen name="Details" component={Details} />
 
     <Auth.Screen name="Onboarding1" component={Onboarding1} />
     <Auth.Screen name="Onboarding2" component={Onboarding2} />

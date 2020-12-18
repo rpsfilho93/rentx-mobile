@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity`
   width: 100%;
   aspect-ratio: 2.2;
   padding: 24px 16px;
@@ -11,9 +11,12 @@ export const Container = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  margin-bottom: 8px;
 `;
 
 export const CarData = styled.View`
+  width: 30%;
   height: 100%;
 
   justify-content: space-between;
@@ -47,11 +50,7 @@ export const PriceText = styled.Text`
   color: #dc1637;
 `;
 
-export const FuelIcon = styled(Feather).attrs({
-  name: 'droplet',
-  size: 22,
-  color: '#AEAEB3',
-})`
+export const IconContainer = styled.View`
   position: absolute;
   right: 0;
   bottom: 0;
@@ -59,5 +58,5 @@ export const FuelIcon = styled(Feather).attrs({
 
 export const CarImage = styled.Image`
   width: 60%;
-  aspect-ratio: 2;
+  aspect-ratio: 2.2;
 `;

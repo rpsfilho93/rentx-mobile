@@ -68,6 +68,7 @@ const Tabs: React.FC = () => {
           },
         }}
       />
+
       <Screen
         name="Appointments"
         component={Appointments}

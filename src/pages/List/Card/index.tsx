@@ -1,6 +1,8 @@
+import React, { useMemo } from 'react';
+import { Feather, SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 import { differenceInDays } from 'date-fns';
-import React from 'react';
-import { Car } from '..';
+import { useNavigation } from '@react-navigation/native';
+import Car from '../../../DTOS/Car';
 
 import {
   Container,
@@ -11,7 +13,7 @@ import {
   PriceContainer,
   PriceLabel,
   PriceText,
-  FuelIcon,
+  IconContainer,
   CarImage,
 } from './styles';
 
@@ -21,22 +23,39 @@ interface CardProps {
   end: Date;
 }
 
+const fuelIconStyles = {
+  gas: <Feather name="droplet" size={22} color="#AEAEB3" />,
+  eletric: <SimpleLineIcons name="energy" size={22} color="#AEAEB3" />,
+  bio: <Ionicons name="md-leaf-outline" size={22} color="#AEAEB3" />,
+};
+
 const Card: React.FC<CardProps> = ({ car, start, end }) => {
   const interval = differenceInDays(end, start);
+  const { navigate } = useNavigation();
+
+  const fuelIcon = useMemo<string>(() => {
+    const fuelSpec = car.specs.find(spec => spec.name === 'Fuel');
+    return fuelSpec ? fuelSpec.icon : '';
+  }, [car.specs]);
 
   return (
-    <Container>
+    <Container onPress={() => navigate('Details', { car })}>
       <CarData>
         <CarNameContainer>
           <CarBrand>{car.brand.toUpperCase()}</CarBrand>
           <CarName>{car.name}</CarName>
         </CarNameContainer>
         <PriceContainer>
-          <PriceLabel>{`POR ${interval} DIAS`}</PriceLabel>
+          <PriceLabel>
+            {`POR ${interval} ${interval > 1 ? 'DIAS' : 'DIA'}`}
+          </PriceLabel>
           <PriceText>{`R$ ${car.daily_value * interval}`}</PriceText>
-          <FuelIcon />
         </PriceContainer>
+        <IconContainer>
+          {fuelIcon ? fuelIconStyles[fuelIcon] : fuelIconStyles.gas}
+        </IconContainer>
       </CarData>
+      <CarImage source={{ uri: car.CarImage[0].image_url }} />
     </Container>
   );
 };

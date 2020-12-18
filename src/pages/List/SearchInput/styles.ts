@@ -20,7 +20,7 @@ export const TextContainer = styled.TextInput`
   color: #7a7a80;
 `;
 
-export const IconContainer = styled.View`
+export const IconContainer = styled.TouchableOpacity`
   width: 56px;
   height: 56px;
   background: #f4f5f6;

@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 
 import { Container, TextContainer, IconContainer } from './styles';
 
-const SearchInput: React.FC = () => {
+interface SearchInputProps {
+  onPress({ name }: { name: string }): void;
+}
+
+const SearchInput: React.FC<SearchInputProps> = ({ onPress }) => {
+  const [name, setName] = useState<string>('');
+
   return (
     <Container>
-      <TextContainer placeholder="Qual carro você procura?" />
-      <IconContainer>
+      <TextContainer
+        value={name}
+        placeholder="Qual carro você procura?"
+        onChangeText={text => setName(text)}
+        onSubmitEditing={() => onPress({ name })}
+      />
+      <IconContainer onPress={() => onPress({ name })}>
         <Feather name="search" size={25} color="#47474D" />
       </IconContainer>
     </Container>

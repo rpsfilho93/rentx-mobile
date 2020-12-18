@@ -3,7 +3,7 @@ export interface CarImageDTO {
   image_url: string;
 }
 
-interface SpecDTO {
+export interface SpecDTO {
   name: string;
   description: string;
   icon: string;

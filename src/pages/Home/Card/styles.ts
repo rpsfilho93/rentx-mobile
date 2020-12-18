@@ -8,7 +8,7 @@ interface DotProps extends ViewProps {
   active?: boolean;
 }
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity`
   width: 100%;
   aspect-ratio: 1.1;
   background: #f4f5f6;

@@ -78,7 +78,6 @@ const Home: React.FC = () => {
 
   const filterSubmit = useCallback(
     async ({ fuel, transmission, startPrice, endPrice }: FilterState) => {
-      console.log(fuel, transmission, startPrice, endPrice);
       setFilter(false);
       setOptions({
         tabBarVisible: true,

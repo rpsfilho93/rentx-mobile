@@ -35,7 +35,9 @@ export const ListLegth = styled.Text`
 
 export const Content = styled.View`
   width: 100%;
+  height: 100%;
   padding: 0px 16px;
+  background: #fff;
 `;
 
 export const SearchInput = styled.View``;

@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Feather, SimpleLineIcons, Ionicons } from '@expo/vector-icons';
-import { View, ViewToken } from 'react-native';
+import { ViewToken, TouchableOpacityProps } from 'react-native';
 import CarDTO, { CarImageDTO } from '../../../DTOS/Car';
 
 import {
@@ -20,7 +21,7 @@ import {
   Dot,
 } from './styles';
 
-interface CardProps {
+interface CardProps extends TouchableOpacityProps {
   car: CarDTO;
 }
 
@@ -30,7 +31,9 @@ const fuelIconStyles = {
   bio: <Ionicons name="md-leaf-outline" size={25} color="#AEAEB3" />,
 };
 
-const Card: React.FC<CardProps> = ({ car }) => {
+const Card: React.FC<CardProps> = ({ car, ...rest }) => {
+  const { navigate } = useNavigation();
+
   const fuelIcon = useMemo<string>(() => {
     const fuelSpec = car.specs.find(spec => spec.name === 'Fuel');
 
@@ -61,7 +64,7 @@ const Card: React.FC<CardProps> = ({ car }) => {
   );
 
   return (
-    <Container>
+    <Container onPress={() => navigate('Details', { car })} {...rest}>
       <Header>
         <NameContainer>
           <BrandText>{brand.toUpperCase()}</BrandText>
