@@ -12,6 +12,7 @@ import {
 import { Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter';
 
 import Routes from './src/routes';
+import AppProvider from './src/hooks';
 
 const App: React.FC = () => {
   const [fontsLoaded] = useFonts({
@@ -28,14 +29,16 @@ const App: React.FC = () => {
   }
   return (
     <NavigationContainer>
-      <StatusBar
-        barStyle="dark-content"
-        translucent
-        backgroundColor="transparent"
-      />
-      <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        <Routes />
-      </View>
+      <AppProvider>
+        <StatusBar
+          barStyle="dark-content"
+          translucent
+          backgroundColor="transparent"
+        />
+        <View style={{ flex: 1, backgroundColor: '#fff' }}>
+          <Routes />
+        </View>
+      </AppProvider>
     </NavigationContainer>
   );
 };

@@ -3,10 +3,20 @@ import React, { useCallback } from 'react';
 import { StatusBar } from 'react-native';
 
 import logo from '../../assets/Union.png';
-import { Container, Logo, Title, SubTitle, ButtonsContainer, ButtonText, GoBackButton, GoBackButtonText, LoginButton, SignUpButton } from './styles';
+import {
+  Container,
+  Logo,
+  Title,
+  SubTitle,
+  ButtonsContainer,
+  ButtonText,
+  GoBackButton,
+  GoBackButtonText,
+  LoginButton,
+  SignUpButton,
+} from './styles';
 
-const Onboarding3:React.FC = () => {
-
+const Onboarding3: React.FC = () => {
   const { navigate } = useNavigation();
 
   const handleGoback = useCallback(() => {
@@ -23,10 +33,18 @@ const Onboarding3:React.FC = () => {
 
   return (
     <Container>
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent"/>
+      <StatusBar
+        barStyle="light-content"
+        translucent
+        backgroundColor="transparent"
+      />
 
       <Logo source={logo} />
-      <Title>Seja{"\n"}bem-vindo</Title>
+      <Title>
+        Seja
+        {'\n'}
+        bem-vindo
+      </Title>
       <SubTitle>O que você deseja fazer?</SubTitle>
 
       <ButtonsContainer>
@@ -40,8 +58,8 @@ const Onboarding3:React.FC = () => {
       </ButtonsContainer>
 
       <GoBackButton onPress={handleGoback}>
-          <GoBackButtonText>Voltar</GoBackButtonText>
-        </GoBackButton>
+        <GoBackButtonText>Voltar</GoBackButtonText>
+      </GoBackButton>
     </Container>
   );
 };

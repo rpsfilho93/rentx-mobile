@@ -12,21 +12,24 @@ interface SuccessProps {
   subtitle: string;
 }
 
-const Success:React.FC<SuccessProps> = ({ title, subtitle}) => {
-
+const Success: React.FC<SuccessProps> = ({ title, subtitle }) => {
   const { navigate } = useNavigation();
 
   const handleOk = useCallback(() => {
     navigate('Login');
-  }, []);
+  }, [navigate]);
 
   return (
     <Container>
-      <StatusBar barStyle="light-content" translucent backgroundColor="transparent"/>
+      <StatusBar
+        barStyle="light-content"
+        translucent
+        backgroundColor="transparent"
+      />
 
-      <Image source={LogoBackground}/>
+      <Image source={LogoBackground} />
 
-      <Image source={Done}/>
+      <Image source={Done} />
 
       <Title>{title}</Title>
 

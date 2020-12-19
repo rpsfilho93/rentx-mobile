@@ -38,7 +38,11 @@ const Profile: React.FC = () => {
 
   const navigateEdit = useCallback(() => {
     navigate('EditProfile');
-  }, []);
+  }, [navigate]);
+
+  const handleExit = useCallback(() => {
+    navigate('Exit');
+  }, [navigate]);
 
   return (
     <Container>
@@ -49,7 +53,10 @@ const Profile: React.FC = () => {
             <Feather name="edit-3" size={25} color="#AEAEB3" />
           </TouchableOpacity>
           <TitleText>Perfil</TitleText>
-          <Feather name="power" size={25} color="#AEAEB3" />
+
+          <TouchableOpacity onPress={handleExit}>
+            <Feather name="power" size={25} color="#AEAEB3" />
+          </TouchableOpacity>
         </TitleContainer>
       </Header>
 

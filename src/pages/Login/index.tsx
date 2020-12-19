@@ -41,6 +41,8 @@ const Login: React.FC = () => {
   const handleSubmit = useCallback(
     async (data: FormData) => {
       const { email, password } = data;
+      console.log('email', email);
+      console.log('password', password);
       await signIn({ email, password, remember });
     },
     [remember, signIn],
