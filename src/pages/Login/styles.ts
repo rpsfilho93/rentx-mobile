@@ -15,15 +15,15 @@ export const GoBackButton = styled.TouchableOpacity`
 export const Title = styled.Text`
   font-size: 40px;
   font-family: 'Archivo_600SemiBold';
-  color: #3D3D4D;
+  color: #3d3d4d;
   width: 200px;
-  margin-bottom: 16px ;
+  margin-bottom: 16px;
 `;
 
 export const SubTitle = styled.Text`
   font-size: 15px;
   font-family: 'Inter_400Regular';
-  color: #7A7A80;
+  color: #7a7a80;
   width: 230px;
   line-height: 25px;
 
@@ -43,4 +43,3 @@ export const SmallText = styled.Text`
   font-family: 'Inter_400Regular';
   color: #737380;
 `;
-

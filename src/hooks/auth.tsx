@@ -5,6 +5,8 @@ import React, {
   useContext,
   useEffect,
 } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import api from '../services/api';
 
 interface User {
@@ -30,54 +32,35 @@ interface AuthContextData {
   signIn(credentials: SignInData): Promise<void>;
   signOut(): void;
   updateUser(user: User): void;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState<AuthState>(() => {
-    /* const token = localStorage.getItem('@Proffy:token');
-    const user = localStorage.getItem('@Proffy:user');
+  const [data, setData] = useState<AuthState>({} as AuthState);
+  const [loading, setLoading] = useState(false);
 
-    if (token && user) {
-      api.defaults.headers.Authorization = `Bearer ${token}`;
+  useEffect(() => {
+    async function loadStorageData() {
+      setLoading(true);
 
-      return { token, user: JSON.parse(user) };
-    }
-    */
-    const user: User = {
-      id: '4b69add1-2fb1-4101-a81d-d0facdbdb4c6',
-      name: 'Ricardo Filho',
-      email: 'rpsfilho93@gmail.com',
-      image_url: null,
-    };
+      const [token, user] = await AsyncStorage.multiGet([
+        '@RentX:token',
+        '@RentX:user',
+      ]);
 
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDc5NTYxNjMsImV4cCI6MTYwODA0MjU2Mywic3ViIjoiNGI2OWFkZDEtMmZiMS00MTAxLWE4MWQtZDBmYWNkYmRiNGM2In0.cLt7YJr8YuwOgR83tLXRdu0M1UEn8q64edcbinv_Q0c';
+      if (token[1] && user[1]) {
+        api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    api.defaults.headers.Authorization = `Bearer ${token}`;
-    return {} as AuthState;
-  });
+        setData({ token: token[1], user: JSON.parse(user[1]) });
+      }
 
-  /* useEffect(() => {
-    async function sign() {
-      const response = await api.post('/sessions', {
-        email: 'rpsfilho93@gmail.com',
-        password: '123123',
-      });
-
-      const { user, token } = response.data;
-
-      console.log(user, token);
-
-      api.defaults.headers.Authorization = `Bearer ${token}`;
-
-      setData({ user, token });
+      setLoading(false);
     }
 
-    sign();
+    loadStorageData();
   }, []);
-  */
 
   const signIn = useCallback(async ({ email, password, remember = false }) => {
     const response = await api.post('/sessions', {
@@ -86,36 +69,35 @@ export const AuthProvider: React.FC = ({ children }) => {
     });
 
     const { token, user } = response.data;
-    console.log(token, user);
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
     if (remember) {
-      localStorage.setItem('@Proffy:token', token);
-      localStorage.setItem('@Proffy:user', JSON.stringify(user));
+      await AsyncStorage.multiSet([
+        ['@RentX:token', token],
+        ['@RentX:user', JSON.stringify(user)],
+      ]);
     }
 
     setData({ token, user });
   }, []);
 
-  const signOut = useCallback(() => {
-    localStorage.removeItem('@Proffy:token');
-    localStorage.removeItem('@Proffy:user');
+  const signOut = useCallback(async () => {
+    await AsyncStorage.multiRemove(['@RentX:token', '@RentX:user']);
 
     setData({} as AuthState);
   }, []);
 
   const updateUser = useCallback(
-    (user: User) => {
+    async (user: User) => {
       setData({ token: data.token, user });
-
-      localStorage.setItem('@Proffy:user', JSON.stringify(user));
+      await AsyncStorage.setItem('@RentX:user', JSON.stringify(user));
     },
     [data.token],
   );
 
   return (
     <AuthContext.Provider
-      value={{ user: data.user, signIn, signOut, updateUser }}
+      value={{ user: data.user, signIn, signOut, updateUser, loading }}
     >
       {children}
     </AuthContext.Provider>

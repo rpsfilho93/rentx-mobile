@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-
+import { TouchableOpacityProps } from 'react-native';
 import { ContainerButton, InnerSquare } from './styles';
 
-const RememberButton:React.FC = () => {
-  const [remember, setRemember] = useState(false);
+interface RememberButtonProps extends TouchableOpacityProps {
+  value: boolean;
+}
 
+const RememberButton: React.FC<RememberButtonProps> = ({ value, ...rest }) => {
   return (
-    <ContainerButton onPress={() => setRemember(!remember)} style={{ backgroundColor: remember ? '#1B1B1F' : '#EBEBF0' }}>
-      {remember ? <InnerSquare /> : null}
+    <ContainerButton
+      {...rest}
+      style={{ backgroundColor: value ? '#1B1B1F' : '#EBEBF0' }}
+    >
+      {value ? <InnerSquare /> : null}
     </ContainerButton>
   );
 };

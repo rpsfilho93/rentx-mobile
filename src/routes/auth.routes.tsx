@@ -57,13 +57,13 @@ const AuthRoutes: React.FC = () => (
       cardStyle: { backgroundColor: '#fff' },
     }}
   >
+    <Auth.Screen name="Login" component={Login} />
+
     <Auth.Screen name="DatePicker" component={DatePicker} />
 
     <Auth.Screen name="AppTabs" component={AppTabs} />
 
     <Auth.Screen name="EditProfile" component={EditProfile} />
-
-    <Auth.Screen name="Login" component={Login} />
 
     <Auth.Screen name="SplashScreen" component={SplashScreen} />
 
