@@ -63,7 +63,8 @@ const List: React.FC = () => {
       <Header>
         <ListTitle>Listagem</ListTitle>
         <ListLegth>
-          {`${cars?.length} ${cars?.length > 1 ? 'carros' : 'carro'}`}
+          {!loading &&
+            `${cars?.length} ${cars?.length > 1 ? 'carros' : 'carro'}`}
         </ListLegth>
       </Header>
 

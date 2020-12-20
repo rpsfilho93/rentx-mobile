@@ -41,8 +41,6 @@ const Login: React.FC = () => {
   const handleSubmit = useCallback(
     async (data: FormData) => {
       const { email, password } = data;
-      console.log('email', email);
-      console.log('password', password);
       await signIn({ email, password, remember });
     },
     [remember, signIn],
@@ -113,7 +111,7 @@ const Login: React.FC = () => {
             </TouchableOpacity>
           </RememberContainer>
 
-          <Button text="Login" />
+          <Button text="Login" onPress={() => formRef.current?.submitForm()} />
         </Container>
       </ScrollView>
     </KeyboardAvoidingView>

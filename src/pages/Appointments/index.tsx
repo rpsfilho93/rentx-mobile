@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import Card from './Card';
 
-import { Container, Header, ListTitle, ListLegth, Content } from './styles';
+import { Container, Header, ListTitle, ListLength, Content } from './styles';
 
 const Appointments: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const Appointments: React.FC = () => {
       <StatusBar barStyle="light-content" />
       <Header>
         <ListTitle>Agendamentos</ListTitle>
-        <ListLegth>5 períodos</ListLegth>
+        <ListLength>5 períodos</ListLength>
       </Header>
 
       <Content>

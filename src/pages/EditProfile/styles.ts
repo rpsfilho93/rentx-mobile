@@ -6,15 +6,16 @@ interface TabProps extends TextProps {
   selected: boolean;
 }
 
-
 export const Container = styled.View`
+  justify-content: flex-end;
   height: 100%;
+  padding-bottom: 13%;
 `;
 
 export const Header = styled.View`
   height: 28%;
   justify-content: flex-start;
-  background: #1B1B1F;
+  background: #1b1b1f;
 
   padding: 36px 16px 0px;
 `;
@@ -51,7 +52,7 @@ export const CameraButton = styled.TouchableOpacity`
   width: 42px;
   height: 42px;
 
-  background: #DC1637;
+  background: #dc1637;
 
   align-items: center;
   justify-content: center;
@@ -64,7 +65,7 @@ export const CameraButton = styled.TouchableOpacity`
 export const CameraIcon = styled(Feather).attrs({
   name: 'camera',
   size: 20,
-  color: '#fff'
+  color: '#fff',
 })``;
 
 export const TabContainer = styled.View`
@@ -76,7 +77,7 @@ export const TabContainer = styled.View`
   height: 56px;
 
   border-bottom-width: 1px;
-  border-bottom-color: #EBEBF0;
+  border-bottom-color: #ebebf0;
 
   padding: 16px 48px;
 
@@ -89,7 +90,7 @@ export const Tab = styled.Text<TabProps>`
   padding: 10px 0px;
   font-size: 20px;
   font-family: 'Archivo_600SemiBold';
-  color: ${props => props.selected ? '#3D3D4D' : '#AEAEB3'};
-  border-bottom-width: ${props => props.selected ? '2px' : '0px'};
-  border-bottom-color: #DC1637;
+  color: ${props => (props.selected ? '#3D3D4D' : '#AEAEB3')};
+  border-bottom-width: ${props => (props.selected ? '2px' : '0px')};
+  border-bottom-color: #dc1637;
 `;

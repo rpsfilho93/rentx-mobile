@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, StatusBar, View } from 'react-native';
 import { format } from 'date-fns';
 import { useNavigation } from '@react-navigation/native';
-import { pt } from 'date-fns/locale';
+import { ptBR } from 'date-fns/locale';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Card from './Card';
@@ -37,7 +37,7 @@ const Home: React.FC = () => {
   const [filter, setFilter] = useState(false);
 
   const formatDate = useCallback((date: Date) => {
-    return format(date, 'dd MMMM yyyy', { locale: pt });
+    return format(date, 'dd/MM/yyyy', { locale: ptBR });
   }, []);
 
   const handleChevronDown = useCallback(() => {

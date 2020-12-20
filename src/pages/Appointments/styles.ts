@@ -1,8 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  width: 100%;
-  height: 100%;
+  flex: 1;
 `;
 
 export const Header = styled.View`
@@ -24,7 +23,7 @@ export const ListTitle = styled.Text`
   color: #ffffff;
 `;
 
-export const ListLegth = styled.Text`
+export const ListLength = styled.Text`
   font-family: 'Inter_400Regular';
   font-size: 13px;
 
@@ -33,7 +32,9 @@ export const ListLegth = styled.Text`
 
 export const Content = styled.View`
   width: 100%;
+  height: 100%;
   padding: 16px 16px;
+  background: #fff;
 `;
 
 export const SearchInput = styled.View``;

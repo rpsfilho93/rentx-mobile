@@ -48,7 +48,7 @@ export const EmptyDate = styled.View`
 
 export const Content = styled.View`
   flex: 1;
-  padding: 40px 24px 8px;
+  padding: 24px 24px 8px;
 `;
 
 export const MonthContainer = styled.View`
