@@ -4,11 +4,11 @@ import { Feather } from '@expo/vector-icons';
 export const Container = styled.View``;
 
 export const Header = styled.View`
-  height: 28%;
+  height: 25%;
   justify-content: flex-start;
-  background: #1B1B1F;
+  background: #1b1b1f;
 
-  padding: 32px 16px 0px;
+  padding: 36px 16px 0px;
 `;
 
 export const TitleContainer = styled.View`
@@ -25,6 +25,8 @@ export const TitleText = styled.Text`
 export const Content = styled.View`
   align-items: center;
   padding: 0px 24px;
+  height: 100%;
+  background: #fff;
 `;
 
 export const ProfileContainer = styled.View`
@@ -43,7 +45,7 @@ export const Avatar = styled.Image`
 export const Name = styled.Text`
   font-size: 28px;
   font-family: 'Archivo_600SemiBold';
-  color: #3D3D4D;
+  color: #3d3d4d;
 
   text-align: center;
 `;
@@ -54,7 +56,7 @@ export const SchedulesContainer = styled.View`
   width: 100%;
 
   border-bottom-width: 1px;
-  border-bottom-color: #E6E6F0;
+  border-bottom-color: #e6e6f0;
 
   padding-bottom: 12px;
   margin-bottom: 16px;
@@ -63,13 +65,13 @@ export const SchedulesContainer = styled.View`
 export const SchedulesText = styled.Text`
   font-size: 15px;
   font-family: 'Inter_400Regular';
-  color: #7A7A80;
+  color: #7a7a80;
 `;
 
 export const SchedulesNumber = styled.Text`
   font-size: 15px;
   font-family: 'Archivo_500Medium';
-  color: #47474D;
+  color: #47474d;
 `;
 
 export const FavoriteCarContainer = styled.View`
@@ -83,21 +85,21 @@ export const FavoriteCarContainer = styled.View`
 export const FavoriteCarText = styled.Text`
   font-size: 15px;
   font-family: 'Inter_400Regular';
-  color: #7A7A80;
+  color: #7a7a80;
 `;
 
 export const FavoriteCarNumber = styled.Text`
   font-size: 15px;
   font-family: 'Archivo_500Medium';
-  color: #47474D;
+  color: #47474d;
 `;
 
 export const Card = styled.View`
-  width : 100%;
+  width: 100%;
   aspect-ratio: 2.2;
   padding: 24px 16px;
 
-  background: #F4F5F6;
+  background: #f4f5f6;
 
   flex-direction: row;
   align-items: center;
@@ -115,13 +117,13 @@ export const CarNameContainer = styled.View``;
 export const CarBrand = styled.Text`
   font-size: 10px;
   font-family: 'Archivo_500Medium';
-  color: #AEAEB3;
+  color: #aeaeb3;
 `;
 
 export const CarName = styled.Text`
   font-size: 15px;
   font-family: 'Archivo_500Medium';
-  color: #47474D;
+  color: #47474d;
 `;
 
 export const PriceContainer = styled.View``;
@@ -129,13 +131,13 @@ export const PriceContainer = styled.View``;
 export const PriceLabel = styled.Text`
   font-size: 10px;
   font-family: 'Archivo_500Medium';
-  color: #AEAEB3;
+  color: #aeaeb3;
 `;
 
 export const PriceText = styled.Text`
   font-size: 15px;
   font-family: 'Archivo_500Medium';
-  color: #DC1637;
+  color: #dc1637;
 `;
 
 export const FuelIcon = styled(Feather).attrs({

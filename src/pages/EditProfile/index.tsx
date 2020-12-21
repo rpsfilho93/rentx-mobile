@@ -16,6 +16,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import PasswordInput from '../../components/PasswordInput';
 import { useAuth } from '../../hooks/auth';
+import defaultAvatar from '../../assets/user.png';
 
 import {
   Container,
@@ -31,6 +32,7 @@ import {
   Tab,
 } from './styles';
 import api from '../../services/api';
+import ImagePickerButton from '../../components/ImagePicker';
 
 interface FormData1 {
   name: string;
@@ -51,6 +53,9 @@ const EditProfile: React.FC = () => {
   const formRef2 = useRef<FormHandles>(null);
 
   const emailInputRef = useRef<TextInput>(null);
+
+  const passwordInputRef = useRef<TextInput>(null);
+  const repeatPasswordInputRef = useRef<TextInput>(null);
 
   const { goBack } = useNavigation();
 
@@ -118,13 +123,11 @@ const EditProfile: React.FC = () => {
           <Content>
             <AvatarContainer>
               <Avatar
-                source={{
-                  uri: 'https://www.hypeness.com.br/1/2020/01/Pug_02.jpg',
-                }}
+                source={
+                  user.image_url ? { uri: user.image_url } : defaultAvatar
+                }
               />
-              <CameraButton>
-                <CameraIcon />
-              </CameraButton>
+              <ImagePickerButton />
             </AvatarContainer>
 
             <TabContainer>
@@ -173,30 +176,39 @@ const EditProfile: React.FC = () => {
                 />
               </>
             ) : (
-              <>
-                <Form ref={formRef2} onSubmit={handleSubmit2}>
-                  <PasswordInput
-                    name="oldPassword"
-                    placeholder="Senha Atual"
-                    containerStyle={{ marginBottom: 8 }}
+                <>
+                  <Form ref={formRef2} onSubmit={handleSubmit2}>
+                    <PasswordInput
+                      name="oldPassword"
+                      placeholder="Senha Atual"
+                      returnKeyType="next"
+                      containerStyle={{ marginBottom: 8 }}
+                      onSubmitEditing={() => passwordInputRef.current?.focus()}
+                    />
+                    <PasswordInput
+                      ref={passwordInputRef}
+                      name="password"
+                      placeholder="Senha"
+                      returnKeyType="next"
+                      containerStyle={{ marginBottom: 8 }}
+                      onSubmitEditing={() =>
+                        repeatPasswordInputRef.current?.focus()}
+                    />
+                    <PasswordInput
+                      ref={repeatPasswordInputRef}
+                      name="repeatPassword"
+                      placeholder="Repetir Senha"
+                      returnKeyType="send"
+                      onSubmitEditing={() => formRef2.current?.submitForm()}
+                    />
+                  </Form>
+                  <Button
+                    text="Salvar Alterações"
+                    style={{ marginTop: 24 }}
+                    onPress={() => formRef2.current?.submitForm()}
                   />
-                  <PasswordInput
-                    name="password"
-                    placeholder="Senha"
-                    containerStyle={{ marginBottom: 8 }}
-                  />
-                  <PasswordInput
-                    name="repeatPassword"
-                    placeholder="Repetir Senha"
-                  />
-                </Form>
-                <Button
-                  text="Salvar Alterações"
-                  onPress={() => formRef2.current?.submitForm()}
-                  style={{ marginTop: 24 }}
-                />
-              </>
-            )}
+                </>
+              )}
           </Content>
         </Container>
       </ScrollView>

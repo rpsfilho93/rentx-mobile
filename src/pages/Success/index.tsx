@@ -10,14 +10,15 @@ import { Container, Title, Subtitle, OkButton, OkButtonText } from './styles';
 interface SuccessProps {
   title: string;
   subtitle: string;
+  nextPage: string;
 }
 
-const Success: React.FC<SuccessProps> = ({ title, subtitle }) => {
+const Success: React.FC<SuccessProps> = ({ title, subtitle, nextPage }) => {
   const { navigate } = useNavigation();
 
   const handleOk = useCallback(() => {
-    navigate('Login');
-  }, [navigate]);
+    navigate(nextPage);
+  }, [navigate, nextPage]);
 
   return (
     <Container>

@@ -8,7 +8,7 @@ import Onboarding2 from '../pages/Onboarding2';
 import Onboarding3 from '../pages/Onboarding3';
 import SignUp1 from '../pages/SignUp1';
 import SignUp2 from '../pages/SignUp2';
-import Success from '../pages/SuccessPage';
+import Success from '../pages/Success';
 
 const AuthRoutes: React.FC = () => {
   const Auth = createStackNavigator();
@@ -17,6 +17,7 @@ const AuthRoutes: React.FC = () => {
     <Success
       title="Conta criada!"
       subtitle="Agora é só fazer login e aproveitar."
+      nextPage="Login"
     />
   );
 

@@ -6,6 +6,9 @@ import { StatusBar } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import Lancer from '../../assets/Lancer.png';
 
+import defaultAvatar from '../../assets/user.png';
+import { useAuth } from '../../hooks/auth';
+
 import {
   Container,
   Header,
@@ -35,6 +38,7 @@ import {
 
 const Profile: React.FC = () => {
   const { navigate } = useNavigation();
+  const { user } = useAuth();
 
   const navigateEdit = useCallback(() => {
     navigate('EditProfile');
@@ -63,9 +67,9 @@ const Profile: React.FC = () => {
       <Content>
         <ProfileContainer>
           <Avatar
-            source={{ uri: 'https://www.hypeness.com.br/1/2020/01/Pug_02.jpg' }}
+            source={user.image_url ? { uri: user.image_url } : defaultAvatar}
           />
-          <Name>Thiago Luchtenberg</Name>
+          <Name>{user.name}</Name>
         </ProfileContainer>
 
         <SchedulesContainer>

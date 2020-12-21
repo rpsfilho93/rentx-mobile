@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Success from '../pages/SuccessPage';
+import Success from '../pages/Success';
 import DatePicker from '../pages/DatePicker';
 import EditProfile from '../pages/EditProfile';
 import Details from '../pages/Details';
@@ -22,16 +22,18 @@ export type AppParamList = {
   SignUp1: undefined;
   SignUp2: undefined;
   AccountSaved: undefined;
-  SavedProfile: undefined;
+  ProfileSaved: undefined;
   Exit: undefined;
 };
 
 const App = createStackNavigator<AppParamList>();
 
-const SavedProfile = () => (
+const ProfileSaved = () => (
   <Success
     title="Feito!"
-    subtitle="Agora suas informações estão atualizadas."
+    subtitle="Agora suas infomações
+      estão atualizadas."
+    nextPage="Home"
   />
 );
 
@@ -47,7 +49,7 @@ const AppRoutes: React.FC = () => (
     <App.Screen name="AppTabs" component={AppTabs} />
     <App.Screen name="EditProfile" component={EditProfile} />
     <App.Screen name="Details" component={Details} />
-    <App.Screen name="SavedProfile" component={SavedProfile} />
+    <App.Screen name="ProfileSaved" component={ProfileSaved} />
     <App.Screen name="Exit" component={Exit} />
   </App.Navigator>
 );
