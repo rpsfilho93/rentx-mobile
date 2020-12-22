@@ -1,10 +1,8 @@
 import React, { useCallback } from 'react';
+import { Feather, SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
-
-import { Feather } from '@expo/vector-icons';
-import Lancer from '../../assets/Lancer.png';
 
 import defaultAvatar from '../../assets/user.png';
 import { useAuth } from '../../hooks/auth';
@@ -32,9 +30,15 @@ import {
   PriceContainer,
   PriceLabel,
   PriceText,
-  FuelIcon,
+  IconContainer,
   CarImage,
 } from './styles';
+
+const fuelIcon = {
+  gas: <Feather name="droplet" size={22} color="#AEAEB3" />,
+  eletric: <SimpleLineIcons name="energy" size={22} color="#AEAEB3" />,
+  bio: <Ionicons name="md-leaf-outline" size={24} color="#AEAEB3" />,
+};
 
 const Profile: React.FC = () => {
   const { navigate } = useNavigation();
@@ -74,28 +78,39 @@ const Profile: React.FC = () => {
 
         <SchedulesContainer>
           <SchedulesText>Agendamentos Feitos</SchedulesText>
-          <SchedulesNumber>05</SchedulesNumber>
+          <SchedulesNumber>
+            {user.favoriteCar ? user.rentals : 0}
+          </SchedulesNumber>
         </SchedulesContainer>
 
-        <FavoriteCarContainer>
-          <FavoriteCarText>Carro Favorito</FavoriteCarText>
-          <FavoriteCarNumber>Utilizado 2 vezes</FavoriteCarNumber>
-        </FavoriteCarContainer>
+        {user.favoriteCar && (
+          <>
+            <FavoriteCarContainer>
+              <FavoriteCarText>Carro Favorito</FavoriteCarText>
+              <FavoriteCarNumber>
+                {`Utilizado ${user.favoriteCar.occurrences} ${user.favoriteCar.occurrences > 1 ? 'vezes' : 'vez'
+                  }`}
+              </FavoriteCarNumber>
+            </FavoriteCarContainer>
 
-        <Card>
-          <CarData>
-            <CarNameContainer>
-              <CarBrand>MITSUBISHI</CarBrand>
-              <CarName>Lancer Evo X</CarName>
-            </CarNameContainer>
-            <PriceContainer>
-              <PriceLabel>POR 3 DIAS</PriceLabel>
-              <PriceText>R$ 290</PriceText>
-              <FuelIcon />
-            </PriceContainer>
-          </CarData>
-          <CarImage source={Lancer} />
-        </Card>
+            <Card>
+              <CarData>
+                <CarNameContainer>
+                  <CarBrand>{user.favoriteCar.brand}</CarBrand>
+                  <CarName>{user.favoriteCar.name}</CarName>
+                </CarNameContainer>
+                <PriceContainer>
+                  <PriceLabel>POR 1 DIA</PriceLabel>
+                  <PriceText>{`R$ ${user.favoriteCar.daily_value}`}</PriceText>
+                  <IconContainer>
+                    {fuelIcon[user.favoriteCar.fuel]}
+                  </IconContainer>
+                </PriceContainer>
+              </CarData>
+              <CarImage source={{ uri: user.favoriteCar.image_url }} />
+            </Card>
+          </>
+        )}
       </Content>
     </Container>
   );

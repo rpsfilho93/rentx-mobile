@@ -14,6 +14,15 @@ interface User {
   name: string;
   email: string;
   image_url?: string | null;
+  rentals: number;
+  favoriteCar?: {
+    name: string;
+    brand: string;
+    daily_value: number;
+    fuel: string;
+    image_url: string;
+    occurrences: number;
+  };
 }
 
 interface AuthState {

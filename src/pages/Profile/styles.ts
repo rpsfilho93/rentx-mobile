@@ -118,6 +118,7 @@ export const CarBrand = styled.Text`
   font-size: 10px;
   font-family: 'Archivo_500Medium';
   color: #aeaeb3;
+  text-transform: uppercase;
 `;
 
 export const CarName = styled.Text`
@@ -152,5 +153,11 @@ export const FuelIcon = styled(Feather).attrs({
 
 export const CarImage = styled.Image`
   width: 60%;
-  aspect-ratio: 2;
+  aspect-ratio: 2.3;
+`;
+
+export const IconContainer = styled.View`
+  position: absolute;
+  right: 0;
+  bottom: 0;
 `;
