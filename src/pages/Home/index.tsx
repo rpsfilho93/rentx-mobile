@@ -36,6 +36,16 @@ const Home: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState(false);
 
+  const [fuelFilter, setFuelFilter] = useState<
+    'Gasolina' | 'Elétrico' | 'Álcool'
+  >('Gasolina');
+
+  const [transmissionFilter, setTransmissionFilter] = useState<
+    'Manual' | 'Automático'
+  >('Manual');
+  const [startPriceFilter, setStartPriceFilter] = useState<number>(150);
+  const [endPriceFilter, setEndPriceFilter] = useState<number>(300);
+
   const formatDate = useCallback((date: Date) => {
     return format(date, 'dd/MM/yyyy', { locale: ptBR });
   }, []);
@@ -85,6 +95,11 @@ const Home: React.FC = () => {
 
       setLoading(true);
 
+      setFuelFilter(fuel);
+      setTransmissionFilter(transmission);
+      setStartPriceFilter(startPrice);
+      setEndPriceFilter(endPrice);
+
       const response = await api.get('/cars', {
         params: {
           start_price: startPrice,
@@ -99,6 +114,20 @@ const Home: React.FC = () => {
     },
     [setOptions],
   );
+
+  const noFilterSearch = useCallback(async () => {
+    setFilter(false);
+    setOptions({
+      tabBarVisible: true,
+    });
+
+    setLoading(true);
+
+    const response = await api.get('/cars');
+
+    setCars(response.data);
+    setLoading(false);
+  }, [setOptions]);
 
   return (
     <>
@@ -156,9 +185,17 @@ const Home: React.FC = () => {
         </Content>
 
         {filter && (
-          <BackgroundOpacity onPress={goBack}>
-            <Filter onSubmit={filterSubmit} />
-          </BackgroundOpacity>
+          <>
+            <BackgroundOpacity onPress={goBack} />
+            <Filter
+              fuel={fuelFilter}
+              startPrice={startPriceFilter}
+              endPrice={endPriceFilter}
+              transmission={transmissionFilter}
+              onSubmit={filterSubmit}
+              noFilter={noFilterSearch}
+            />
+          </>
         )}
       </Container>
     </>

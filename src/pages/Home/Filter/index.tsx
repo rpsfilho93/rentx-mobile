@@ -9,6 +9,7 @@ import {
   Header,
   Title,
   Clean,
+  CleanText,
   FilterContainer,
   PriceHeader,
   FilterName,
@@ -28,18 +29,31 @@ export interface FilterState {
 }
 
 interface FilterProps {
+  fuel: 'Gasolina' | 'Elétrico' | 'Álcool';
+  transmission: 'Manual' | 'Automático';
+  startPrice: number;
+  endPrice: number;
   onSubmit(state: FilterState): void;
+  noFilter(): void;
 }
 
-const Filter: React.FC<FilterProps> = ({ onSubmit }) => {
-  const [fuel, setFuel] = useState<'Gasolina' | 'Elétrico' | 'Álcool'>(
-    'Gasolina',
-  );
-  const [transmission, setTransmission] = useState<'Manual' | 'Automático'>(
-    'Automático',
-  );
-  const [startPrice, setStartPrice] = useState<number>(200);
-  const [endPrice, setEndPrice] = useState<number>(500);
+const Filter: React.FC<FilterProps> = ({
+  startPrice,
+  endPrice,
+  fuel,
+  transmission,
+  onSubmit,
+  noFilter,
+}) => {
+  const [fuelFilter, setFuelFilter] = useState<
+    'Gasolina' | 'Elétrico' | 'Álcool'
+  >(fuel);
+
+  const [transmissionFilter, setTransmissionFilter] = useState<
+    'Manual' | 'Automático'
+  >(transmission);
+  const [startPriceFilter, setStartPriceFilter] = useState<number>(startPrice);
+  const [endPriceFilter, setEndPriceFilter] = useState<number>(endPrice);
 
   const renderThumb = useCallback(
     () => (
@@ -86,24 +100,26 @@ const Filter: React.FC<FilterProps> = ({ onSubmit }) => {
     <Container>
       <Header>
         <Title>Filtro</Title>
-        <Clean>Limpar todos</Clean>
+        <Clean onPress={noFilter}>
+          <CleanText>Limpar todos</CleanText>
+        </Clean>
       </Header>
       <FilterContainer>
         <PriceHeader>
           <FilterName>Preço ao dia</FilterName>
-          <PriceText>{`R$${startPrice}-R$${endPrice}`}</PriceText>
+          <PriceText>{`R$${startPriceFilter}-R$${endPriceFilter}`}</PriceText>
         </PriceHeader>
         <RangeSlider
           style={{ width: 240, height: 24, alignSelf: 'center', marginTop: 16 }}
           gravity="center"
           min={50}
           max={500}
-          low={startPrice}
-          high={endPrice}
+          low={startPriceFilter}
+          high={endPriceFilter}
           step={10}
           onValueChanged={(low, high, fromUser) => {
-            setStartPrice(low);
-            setEndPrice(high);
+            setStartPriceFilter(low);
+            setEndPriceFilter(high);
           }}
           renderThumb={renderThumb}
           renderRail={renderRail}
@@ -114,43 +130,43 @@ const Filter: React.FC<FilterProps> = ({ onSubmit }) => {
         <FilterName>Combustível</FilterName>
         <FuelContainer>
           <FuelButton
-            onPress={() => setFuel('Gasolina')}
-            style={fuel === 'Gasolina' && { backgroundColor: '#fff' }}
+            onPress={() => setFuelFilter('Gasolina')}
+            style={fuelFilter === 'Gasolina' && { backgroundColor: '#fff' }}
           >
             <Feather
               name="droplet"
               size={28}
-              color={fuel === 'Gasolina' ? '#dc1637' : '#AEAEB3'}
+              color={fuelFilter === 'Gasolina' ? '#dc1637' : '#AEAEB3'}
             />
-            <Name style={fuel === 'Gasolina' && { color: '#47474D' }}>
+            <Name style={fuelFilter === 'Gasolina' && { color: '#47474D' }}>
               Gasolina
             </Name>
           </FuelButton>
 
           <FuelButton
-            onPress={() => setFuel('Elétrico')}
-            style={fuel === 'Elétrico' && { backgroundColor: '#fff' }}
+            onPress={() => setFuelFilter('Elétrico')}
+            style={fuelFilter === 'Elétrico' && { backgroundColor: '#fff' }}
           >
             <SimpleLineIcons
               name="energy"
               size={28}
-              color={fuel === 'Elétrico' ? '#dc1637' : '#AEAEB3'}
+              color={fuelFilter === 'Elétrico' ? '#dc1637' : '#AEAEB3'}
             />
-            <Name style={fuel === 'Elétrico' && { color: '#47474D' }}>
+            <Name style={fuelFilter === 'Elétrico' && { color: '#47474D' }}>
               Elétrico
             </Name>
           </FuelButton>
 
           <FuelButton
-            onPress={() => setFuel('Álcool')}
-            style={fuel === 'Álcool' && { backgroundColor: '#fff' }}
+            onPress={() => setFuelFilter('Álcool')}
+            style={fuelFilter === 'Álcool' && { backgroundColor: '#fff' }}
           >
             <Ionicons
               name="md-leaf-outline"
               size={28}
-              color={fuel === 'Álcool' ? '#dc1637' : '#AEAEB3'}
+              color={fuelFilter === 'Álcool' ? '#dc1637' : '#AEAEB3'}
             />
-            <Name style={fuel === 'Álcool' && { color: '#47474D' }}>
+            <Name style={fuelFilter === 'Álcool' && { color: '#47474D' }}>
               Álcool
             </Name>
           </FuelButton>
@@ -161,25 +177,41 @@ const Filter: React.FC<FilterProps> = ({ onSubmit }) => {
         <FilterName>Transmissão</FilterName>
         <TransmissionContainer>
           <TransmissionButton
-            onPress={() => setTransmission('Automático')}
-            style={transmission === 'Automático' && { backgroundColor: '#fff' }}
+            onPress={() => setTransmissionFilter('Automático')}
+            style={
+              transmissionFilter === 'Automático' && { backgroundColor: '#fff' }
+            }
           >
-            <Name style={transmission === 'Automático' && { color: '#47474D' }}>
+            <Name
+              style={
+                transmissionFilter === 'Automático' && { color: '#47474D' }
+              }
+            >
               Automático
             </Name>
           </TransmissionButton>
           <TransmissionButton
-            onPress={() => setTransmission('Manual')}
-            style={transmission === 'Manual' && { backgroundColor: '#fff' }}
+            onPress={() => setTransmissionFilter('Manual')}
+            style={
+              transmissionFilter === 'Manual' && { backgroundColor: '#fff' }
+            }
           >
-            <Name style={transmission === 'Manual' && { color: '#47474D' }}>
+            <Name
+              style={transmissionFilter === 'Manual' && { color: '#47474D' }}
+            >
               Manual
             </Name>
           </TransmissionButton>
         </TransmissionContainer>
       </FilterContainer>
       <Button
-        onPress={() => onSubmit({ fuel, transmission, startPrice, endPrice })}
+        onPress={() =>
+          onSubmit({
+            fuel: fuelFilter,
+            transmission: transmissionFilter,
+            startPrice: startPriceFilter,
+            endPrice: endPriceFilter,
+          })}
         text="Confirmar"
         style={{ marginTop: 24 }}
       />

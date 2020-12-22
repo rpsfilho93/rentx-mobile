@@ -1,13 +1,15 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  opacity: 1;
   background: #fff;
   border-top-left-radius: 18px;
   border-top-right-radius: 18px;
   height: 88%;
+  width: 100%;
 
   padding: 24px 24px;
+  position: absolute;
+  bottom: 0;
 `;
 
 export const Header = styled.View`
@@ -28,7 +30,9 @@ export const Title = styled.Text`
   color: #47474d;
 `;
 
-export const Clean = styled.Text`
+export const Clean = styled.TouchableOpacity``;
+
+export const CleanText = styled.Text`
   font-family: 'Inter_500Medium';
   font-size: 15px;
 
