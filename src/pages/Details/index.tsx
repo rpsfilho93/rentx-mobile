@@ -6,7 +6,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { format, differenceInDays } from 'date-fns';
 import { pt } from 'date-fns/locale';
 
-import { AuthParamList } from '../../routes/auth.routes';
+import { AppParamList } from '../../routes/app.routes';
 import { useDateRange } from '../../hooks/dateRange';
 import CarDTO, { CarImageDTO, SpecDTO } from '../../DTOS/Car';
 import Cambio from '../../assets/Câmbio.png';
@@ -44,8 +44,9 @@ import {
   SpecText,
   Gear,
 } from './styles';
+import api from '../../services/api';
 
-type DetailsRouteProp = RouteProp<AuthParamList, 'Details'>;
+type DetailsRouteProp = RouteProp<AppParamList, 'Details'>;
 
 const icons = {
   gas: <Feather name="droplet" size={28} color="#47474D" />,
@@ -58,6 +59,7 @@ const Details: React.FC = () => {
   const route = useRoute<DetailsRouteProp>();
 
   const {
+    id,
     name,
     brand,
     daily_value,
@@ -65,7 +67,7 @@ const Details: React.FC = () => {
     specs,
   } = route.params.car;
 
-  const { goBack } = useNavigation();
+  const { goBack, navigate } = useNavigation();
   const [currentImage, setCurrentImage] = useState(0);
   const { start, end } = useDateRange();
 
@@ -105,6 +107,18 @@ const Details: React.FC = () => {
     );
   }, []);
 
+  const handleRentNow = useCallback(async () => {
+    console.log('start', start.toISOString());
+
+    await api.post('/rentals', {
+      car_id: id,
+      start_date: start,
+      end_date: end,
+    });
+
+    navigate('CarRented');
+  }, [id, start, end, navigate]);
+
   return (
     <Container>
       <StatusBar barStyle="dark-content" />
@@ -118,8 +132,8 @@ const Details: React.FC = () => {
               return order === currentImage ? (
                 <Dot key={image.name} active />
               ) : (
-                <Dot key={image.name} />
-              );
+                  <Dot key={image.name} />
+                );
             })}
           </PageIndicator>
         </Header>
@@ -185,15 +199,14 @@ const Details: React.FC = () => {
           <TotalContainer>
             <TotalLabel>TOTAL</TotalLabel>
             <CalcText>
-              {`R$ ${daily_value}x${interval} ${
-                interval > 1 ? 'diárias' : 'diária'
-              }
+              {`R$ ${daily_value}x${interval} ${interval > 1 ? 'diárias' : 'diária'
+                }
               `}
             </CalcText>
           </TotalContainer>
           <TotalText>{`R$ ${daily_value * interval}`}</TotalText>
         </FooterData>
-        <Button text="Alugar agora" />
+        <Button text="Alugar agora" onPress={handleRentNow} />
       </Footer>
     </Container>
   );

@@ -1,4 +1,6 @@
 import styled from 'styled-components/native';
+import { FlatList } from 'react-native-gesture-handler';
+import RentalDTO from '../../DTOS/Rental';
 
 export const Container = styled.View`
   flex: 1;
@@ -37,4 +39,4 @@ export const Content = styled.View`
   background: #fff;
 `;
 
-export const SearchInput = styled.View``;
+export const RentalList = styled(FlatList as new () => FlatList<RentalDTO>)``;

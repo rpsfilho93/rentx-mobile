@@ -129,7 +129,7 @@ const Home: React.FC = () => {
             <ListHeaderItems>
               {cars && (
                 <ListLength>
-                  {`${cars?.length} ${cars?.length > 1 ? 'carros' : 'carro'}`}
+                  {`${cars?.length} ${cars?.length !== 1 ? 'carros' : 'carro'}`}
                 </ListLength>
               )}
               <TouchableOpacity onPress={handleFilter}>
@@ -145,14 +145,14 @@ const Home: React.FC = () => {
               color="#dc1637"
             />
           ) : (
-            <CarList
-              data={cars}
-              keyExtractor={car => car.id}
-              renderItem={({ item }) => <Card car={item} />}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ paddingBottom: 80 }}
-            />
-          )}
+              <CarList
+                data={cars}
+                keyExtractor={car => car.id}
+                renderItem={({ item }) => <Card car={item} />}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingBottom: 80 }}
+              />
+            )}
         </Content>
 
         {filter && (

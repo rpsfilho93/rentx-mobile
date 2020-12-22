@@ -8,7 +8,7 @@ interface DotProps extends ViewProps {
   active?: boolean;
 }
 
-export const Container = styled.TouchableOpacity`
+export const Container = styled.View`
   width: 100%;
   aspect-ratio: 1.1;
   background: #f4f5f6;
@@ -36,6 +36,7 @@ export const BrandText = styled.Text`
   font-family: 'Archivo_500Medium';
   font-size: 10px;
   color: #aeaeb3;
+  text-transform: uppercase;
 `;
 
 export const NameText = styled.Text`
@@ -62,7 +63,7 @@ export const ImagesContainer = styled(
   FlatList as new () => FlatList<CarImageDTO>,
 )``;
 
-export const ImageCanvas = styled.View`
+export const ImageCanvas = styled.TouchableOpacity`
   width: 282px;
   aspect-ratio: 1.8;
   align-items: center;

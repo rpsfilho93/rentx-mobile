@@ -37,7 +37,12 @@ const DatePicker: React.FC = () => {
   );
 
   const formatDate = useCallback((date: Date) => {
-    return format(date, 'dd MMMM yyyy', { locale: pt });
+    const dayMonthYear = format(date, 'dd MMMM yyyy', { locale: pt });
+    return (
+      dayMonthYear.slice(0, 3) +
+      dayMonthYear.charAt(3).toUpperCase() +
+      dayMonthYear.slice(4)
+    );
   }, []);
 
   const handleConfirmButton = useCallback(() => {
@@ -58,8 +63,8 @@ const DatePicker: React.FC = () => {
             {startDate ? (
               <DateText>{formatDate(startDate)}</DateText>
             ) : (
-              <EmptyDate />
-            )}
+                <EmptyDate />
+              )}
           </View>
 
           <Feather name="arrow-right" size={20} color="#7A7A80" />
@@ -69,8 +74,8 @@ const DatePicker: React.FC = () => {
             {endDate ? (
               <DateText>{formatDate(endDate)}</DateText>
             ) : (
-              <EmptyDate />
-            )}
+                <EmptyDate />
+              )}
           </View>
         </DateContainer>
       </Header>

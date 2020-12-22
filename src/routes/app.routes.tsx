@@ -23,6 +23,7 @@ export type AppParamList = {
   SignUp2: undefined;
   AccountSaved: undefined;
   ProfileSaved: undefined;
+  CarRented: undefined;
   Exit: undefined;
 };
 
@@ -34,6 +35,16 @@ const ProfileSaved = () => (
     subtitle="Agora suas infomações
       estão atualizadas."
     nextPage="Home"
+  />
+);
+
+const CarRented = () => (
+  <Success
+    title="Carro alugado!"
+    subtitle="Agora você só precisa ir
+    até a concessionária da RENTX
+    pegar o seu automóvel."
+    nextPage="Appointments"
   />
 );
 
@@ -50,6 +61,7 @@ const AppRoutes: React.FC = () => (
     <App.Screen name="EditProfile" component={EditProfile} />
     <App.Screen name="Details" component={Details} />
     <App.Screen name="ProfileSaved" component={ProfileSaved} />
+    <App.Screen name="CarRented" component={CarRented} />
     <App.Screen name="Exit" component={Exit} />
   </App.Navigator>
 );

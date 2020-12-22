@@ -45,7 +45,7 @@ const Card: React.FC<CardProps> = ({ car, ...rest }) => {
 
   const renderCarImage = useCallback((image: CarImageDTO) => {
     return (
-      <ImageCanvas>
+      <ImageCanvas onPress={() => navigate('Details', { car })}>
         <CarImage source={{ uri: image.image_url }} />
       </ImageCanvas>
     );
@@ -64,10 +64,10 @@ const Card: React.FC<CardProps> = ({ car, ...rest }) => {
   );
 
   return (
-    <Container onPress={() => navigate('Details', { car })} {...rest}>
+    <Container {...rest}>
       <Header>
         <NameContainer>
-          <BrandText>{brand.toUpperCase()}</BrandText>
+          <BrandText>{brand}</BrandText>
           <NameText>{name}</NameText>
         </NameContainer>
 
@@ -102,8 +102,8 @@ const Card: React.FC<CardProps> = ({ car, ...rest }) => {
             return order === currentImage ? (
               <Dot key={image.name} active />
             ) : (
-              <Dot key={image.name} />
-            );
+                <Dot key={image.name} />
+              );
           })}
         </PageIndicator>
       </Footer>
