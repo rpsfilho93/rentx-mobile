@@ -10,6 +10,20 @@ import SignUp1 from '../pages/SignUp1';
 import SignUp2 from '../pages/SignUp2';
 import Success from '../pages/Success';
 
+export type AuthParamList = {
+  Onboarding3: undefined;
+  Login: undefined;
+  SplashScreen: undefined;
+  Onboarding1: undefined;
+  Onboarding2: undefined;
+  SignUp1: undefined;
+  SignUp2: {
+    name: string;
+    email: string;
+  };
+  AccountSaved: undefined;
+};
+
 const AuthRoutes: React.FC = () => {
   const Auth = createStackNavigator();
 
@@ -28,14 +42,14 @@ const AuthRoutes: React.FC = () => {
         cardStyle: { backgroundColor: '#fff' },
       }}
     >
+      <Auth.Screen name="Onboarding3" component={Onboarding3} />
       <Auth.Screen name="Login" component={Login} />
       <Auth.Screen name="SplashScreen" component={SplashScreen} />
       <Auth.Screen name="Onboarding1" component={Onboarding1} />
       <Auth.Screen name="Onboarding2" component={Onboarding2} />
-      <Auth.Screen name="Onboarding3" component={Onboarding3} />
       <Auth.Screen name="SignUp1" component={SignUp1} />
       <Auth.Screen name="SignUp2" component={SignUp2} />
-      <Auth.Screen name="AccountSaved" component={SavedAccount} />
+      <Auth.Screen name="SavedAccount" component={SavedAccount} />
     </Auth.Navigator>
   );
 };

@@ -21,15 +21,15 @@ const Onboarding3: React.FC = () => {
 
   const handleGoback = useCallback(() => {
     navigate('Onboarding1');
-  }, []);
+  }, [navigate]);
 
   const handleLogin = useCallback(() => {
     navigate('Login');
-  }, []);
+  }, [navigate]);
 
   const handleSignUp = useCallback(() => {
     navigate('SignUp1');
-  }, []);
+  }, [navigate]);
 
   return (
     <Container>

@@ -1,10 +1,19 @@
-import React, { useCallback } from 'react';
-import { KeyboardAvoidingView, Platform, StatusBar, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useCallback, useRef } from 'react';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StatusBar,
+  TextInput,
+} from 'react-native';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Form } from '@unform/mobile';
+import { FormHandles } from '@unform/core';
 
+import { AuthParamList } from '../../routes/auth.routes';
 import Button from '../../components/Button';
+import PasswordInput from '../../components/PasswordInput';
 
 import {
   Container,
@@ -17,18 +26,41 @@ import {
   ActiveSquare,
   InactiveSquare,
 } from './styles';
-import PasswordInput from '../../components/PasswordInput';
+import api from '../../services/api';
+
+type LogonScreenRouteProp = RouteProp<AuthParamList, 'SignUp2'>;
+
+interface DataForm {
+  password: string;
+  repeatPassword: string;
+}
 
 const SignUp2: React.FC = () => {
   const { goBack, navigate } = useNavigation();
+  const { params } = useRoute<LogonScreenRouteProp>();
+
+  const { name, email } = params;
+  const formRef = useRef<FormHandles>(null);
+  const repeatPasswordInputRef = useRef<TextInput>(null);
 
   const handleGoBack = useCallback(() => {
     goBack();
-  }, []);
+  }, [goBack]);
 
-  const handleSubmit = useCallback(() => {
-    navigate('SavedAccount');
-  }, []);
+  const handleSubmit = useCallback(
+    async (data: DataForm) => {
+      const { password } = data;
+
+      await api.post('/users', {
+        name,
+        email,
+        password,
+      });
+
+      navigate('SavedAccount');
+    },
+    [navigate, name, email],
+  );
 
   return (
     <KeyboardAvoidingView
@@ -66,16 +98,29 @@ const SignUp2: React.FC = () => {
 
           <FormTitle>2. Senha</FormTitle>
 
-          <PasswordInput
-            placeholder="Senha"
-            containerStyle={{ marginBottom: 8 }}
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <PasswordInput
+              name="password"
+              placeholder="Senha"
+              containerStyle={{ marginBottom: 8 }}
+              onSubmitEditing={() => {
+                repeatPasswordInputRef.current?.focus();
+              }}
+            />
+            <PasswordInput
+              ref={repeatPasswordInputRef}
+              name="repeatPassword"
+              placeholder="Repetir senha"
+              containerStyle={{ marginBottom: 16 }}
+              onSubmitEditing={() => {
+                formRef.current?.submitForm();
+              }}
+            />
+          </Form>
+          <Button
+            text="Cadastrar"
+            onPress={() => formRef.current?.submitForm()}
           />
-          <PasswordInput
-            placeholder="Repetir senha"
-            containerStyle={{ marginBottom: 16 }}
-          />
-
-          <Button text="Cadastrar" onPress={handleSubmit} />
         </Container>
       </ScrollView>
     </KeyboardAvoidingView>
