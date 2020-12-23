@@ -15,7 +15,7 @@ import {
   IconContainer,
   TextContainer,
   EyeButton,
-  ContentContainer,
+  EyeButtonContainer,
 } from './styles';
 
 interface InputRef {
@@ -95,23 +95,21 @@ const PasswordInput: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         />
       </IconContainer>
 
-      <ContentContainer
-        isFilled={isFilled}
+      <TextContainer
+        ref={inputElementRef}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         hasErrors={hasErrors}
         isFocused={isFocused}
-      >
-        <TextContainer
-          ref={inputElementRef}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          secureTextEntry={!visible}
-          placeholderTextColor="#AEAEB3"
-          onChangeText={value => {
-            inputValueRef.current.value = value;
-          }}
-          {...rest}
-        />
+        secureTextEntry={!visible}
+        placeholderTextColor="#AEAEB3"
+        onChangeText={value => {
+          inputValueRef.current.value = value;
+        }}
+        {...rest}
+      />
 
+      <EyeButtonContainer hasErrors={hasErrors} isFocused={isFocused}>
         <EyeButton onPress={() => setVisible(!visible)}>
           <Feather
             name={visible ? 'eye-off' : 'eye'}
@@ -119,7 +117,7 @@ const PasswordInput: React.ForwardRefRenderFunction<InputRef, InputProps> = (
             color="#AEAEB3"
           />
         </EyeButton>
-      </ContentContainer>
+      </EyeButtonContainer>
     </Container>
   );
 };

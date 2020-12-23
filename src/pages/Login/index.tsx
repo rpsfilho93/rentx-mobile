@@ -6,6 +6,7 @@ import {
   TextInput,
   Alert,
   StatusBar,
+  Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
@@ -76,6 +77,7 @@ const Login: React.FC = () => {
   );
 
   const handleGoBack = useCallback(() => {
+    Keyboard.dismiss();
     navigate('Onboarding3');
   }, [navigate]);
 
@@ -88,12 +90,13 @@ const Login: React.FC = () => {
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <StatusBar backgroundColor="transparent" barStyle="dark-content" />
       <ScrollView
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ flex: 1 }}
       >
         <Container>
+          <StatusBar backgroundColor="transparent" barStyle="dark-content" />
+
           <GoBackButton onPress={handleGoBack}>
             <Feather
               name="chevron-left"
@@ -145,7 +148,13 @@ const Login: React.FC = () => {
             </TouchableOpacity>
           </RememberContainer>
 
-          <Button text="Login" onPress={() => formRef.current?.submitForm()} />
+          <Button
+            text="Login"
+            onPress={() => {
+              formRef.current?.submitForm();
+              Keyboard.dismiss();
+            }}
+          />
         </Container>
       </ScrollView>
     </KeyboardAvoidingView>

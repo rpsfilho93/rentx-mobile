@@ -93,19 +93,19 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
         />
       </IconContainer>
 
-      <ContentContainer isFocused={isFocused} hasErrors={hasErrors}>
-        <TextContainer
-          ref={inputElementRef}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          defaultValue={defaultValue}
-          placeholderTextColor="#AEAEB3"
-          onChangeText={value => {
-            inputValueRef.current.value = value;
-          }}
-          {...rest}
-        />
-      </ContentContainer>
+      <TextContainer
+        ref={inputElementRef}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        isFocused={isFocused}
+        hasErrors={hasErrors}
+        defaultValue={defaultValue}
+        placeholderTextColor="#AEAEB3"
+        onChangeText={value => {
+          inputValueRef.current.value = value;
+        }}
+        {...rest}
+      />
     </Container>
   );
 };

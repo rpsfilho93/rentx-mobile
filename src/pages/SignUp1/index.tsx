@@ -1,5 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import {
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   StatusBar,
@@ -133,7 +134,10 @@ const SignUp1: React.FC = () => {
           </Form>
           <Button
             text="Próximo"
-            onPress={() => formRef.current?.submitForm()}
+            onPress={() => {
+              Keyboard.dismiss();
+              formRef.current?.submitForm();
+            }}
           />
         </Container>
       </ScrollView>

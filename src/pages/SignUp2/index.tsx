@@ -1,6 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import {
   Alert,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   StatusBar,
@@ -144,7 +145,10 @@ const SignUp2: React.FC = () => {
           </Form>
           <Button
             text="Cadastrar"
-            onPress={() => formRef.current?.submitForm()}
+            onPress={() => {
+              formRef.current?.submitForm();
+              Keyboard.dismiss();
+            }}
           />
         </Container>
       </ScrollView>

@@ -6,6 +6,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
@@ -213,7 +214,10 @@ const EditProfile: React.FC = () => {
                 </Form>
                 <Button
                   text="Salvar Alterações"
-                  onPress={() => formRef1.current?.submitForm()}
+                  onPress={() => {
+                    formRef1.current?.submitForm();
+                    Keyboard.dismiss();
+                  }}
                   style={{ marginTop: 88 }}
                 />
               </>
@@ -247,7 +251,10 @@ const EditProfile: React.FC = () => {
                   <Button
                     text="Salvar Alterações"
                     style={{ marginTop: 24 }}
-                    onPress={() => formRef2.current?.submitForm()}
+                    onPress={() => {
+                      formRef2.current?.submitForm();
+                      Keyboard.dismiss();
+                    }}
                   />
                 </>
               )}

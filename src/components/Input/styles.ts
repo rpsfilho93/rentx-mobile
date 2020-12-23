@@ -7,6 +7,10 @@ interface ContainerProps extends ViewProps {
   isFilled?: boolean;
 }
 
+interface TextContainerProps extends ViewProps {
+  hasErrors: boolean;
+  isFocused: boolean;
+}
 export const Container = styled.View`
   flex-direction: row;
   width: 100%;
@@ -37,10 +41,14 @@ export const IconContainer = styled.View<ContainerProps>`
     `}
 `;
 
-export const ContentContainer = styled.View<ContainerProps>`
+export const TextContainer = styled.TextInput<TextContainerProps>`
   flex: 1;
-  flex-direction: row;
-  align-items: center;
+
+  padding: 16px;
+
+  font-size: 15px;
+  font-family: 'Inter_400Regular';
+  color: #7a7a80;
 
   ${props =>
     props.isFocused &&
@@ -55,14 +63,4 @@ export const ContentContainer = styled.View<ContainerProps>`
       border-width: 2px;
       border-color: #c53030;
     `}
-`;
-
-export const TextContainer = styled.TextInput`
-  height: 56px;
-  width: 100%;
-  padding-left: 16px;
-
-  font-size: 15px;
-  font-family: 'Inter_400Regular';
-  color: #7a7a80;
 `;

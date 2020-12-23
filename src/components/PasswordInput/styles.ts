@@ -4,7 +4,12 @@ import { ViewProps, TextInputProps, TouchableOpacityProps } from 'react-native';
 interface ContainerProps extends ViewProps {
   hasErrors: boolean;
   isFocused: boolean;
-  isFilled: boolean;
+  isFilled?: boolean;
+}
+
+interface TextContainerProps extends TextInputProps {
+  hasErrors: boolean;
+  isFocused: boolean;
 }
 
 export const Container = styled.View`
@@ -40,37 +45,64 @@ export const IconContainer = styled.View<ContainerProps>`
     `}
 `;
 
-export const ContentContainer = styled.View<ContainerProps>`
+export const TextContainer = styled.TextInput<TextContainerProps>`
   flex: 1;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  height: 100%;
+
+  padding: 16px;
+
+  font-size: 15px;
+  color: #7a7a80;
+  font-family: 'Inter_400Regular';
 
   ${props =>
     props.isFocused &&
     css`
-      border-width: 2px;
+      border-top-width: 2px;
+      border-left-width: 2px;
+      border-bottom-width: 2px;
+
       border-color: #5ecb57;
     `}
 
   ${props =>
     props.hasErrors &&
     css`
-      border-width: 2px;
+      border-top-width: 2px;
+      border-left-width: 2px;
+      border-bottom-width: 2px;
+
       border-color: #c53030;
     `}
 `;
 
-export const TextContainer = styled.TextInput`
-  flex: 1;
-  max-height: 56px;
-  padding: 16px;
+export const EyeButtonContainer = styled.View<ContainerProps>`
+  height: 100%;
 
-  font-size: 15px;
-  color: #7a7a80;
-  font-family: 'Inter_400Regular';
+  align-items: center;
+  justify-content: center;
+
+  padding-right: 16px;
+
+  ${props =>
+    props.isFocused &&
+    css`
+      border-top-width: 2px;
+      border-right-width: 2px;
+      border-bottom-width: 2px;
+
+      border-color: #5ecb57;
+    `}
+
+  ${props =>
+    props.hasErrors &&
+    css`
+      border-top-width: 2px;
+      border-right-width: 2px;
+      border-bottom-width: 2px;
+
+      border-color: #c53030;
+    `}
 `;
 
-export const EyeButton = styled.TouchableOpacity`
-  padding: 16px;
-`;
+export const EyeButton = styled.TouchableOpacity``;
