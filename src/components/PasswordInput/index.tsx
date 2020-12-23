@@ -4,12 +4,19 @@ import React, {
   useImperativeHandle,
   useRef,
   useState,
+  useCallback,
 } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { TextInputProps } from 'react-native';
 import { useField } from '@unform/core';
 
-import { Container, IconContainer, TextContainer, EyeButton } from './styles';
+import {
+  Container,
+  IconContainer,
+  TextContainer,
+  EyeButton,
+  ContentContainer,
+} from './styles';
 
 interface InputRef {
   focus(): void;
@@ -32,7 +39,25 @@ const PasswordInput: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
   const inputElementRef = useRef<any>(null);
 
+  const [hasErrors, setHasErrors] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
+
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setHasErrors(!!error);
+  }, [error]);
+
+  const handleFocus = useCallback(() => {
+    setIsFocused(true);
+    setHasErrors(false);
+  }, []);
+
+  const handleBlur = useCallback(() => {
+    setIsFocused(false);
+    setIsFilled(!!inputValueRef.current.value);
+  }, []);
 
   useImperativeHandle(ref, () => ({
     focus() {
@@ -58,23 +83,43 @@ const PasswordInput: React.ForwardRefRenderFunction<InputRef, InputProps> = (
 
   return (
     <Container style={containerStyle}>
-      <IconContainer>
-        <Feather name="lock" size={20} color="#7A7A80" />
+      <IconContainer
+        isFilled={isFilled}
+        hasErrors={hasErrors}
+        isFocused={isFocused}
+      >
+        <Feather
+          name="lock"
+          size={20}
+          color={isFilled || hasErrors || isFocused ? '#fff' : '#7A7A80'}
+        />
       </IconContainer>
 
-      <TextContainer
-        ref={inputElementRef}
-        secureTextEntry={!visible}
-        placeholderTextColor="#AEAEB3"
-        onChangeText={value => {
-          inputValueRef.current.value = value;
-        }}
-        {...rest}
-      />
+      <ContentContainer
+        isFilled={isFilled}
+        hasErrors={hasErrors}
+        isFocused={isFocused}
+      >
+        <TextContainer
+          ref={inputElementRef}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          secureTextEntry={!visible}
+          placeholderTextColor="#AEAEB3"
+          onChangeText={value => {
+            inputValueRef.current.value = value;
+          }}
+          {...rest}
+        />
 
-      <EyeButton onPress={() => setVisible(!visible)}>
-        <Feather name={visible ? 'eye-off' : 'eye'} size={20} color="#AEAEB3" />
-      </EyeButton>
+        <EyeButton onPress={() => setVisible(!visible)}>
+          <Feather
+            name={visible ? 'eye-off' : 'eye'}
+            size={20}
+            color="#AEAEB3"
+          />
+        </EyeButton>
+      </ContentContainer>
     </Container>
   );
 };

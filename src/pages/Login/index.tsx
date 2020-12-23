@@ -1,16 +1,25 @@
 import React, { useCallback, useState, useRef } from 'react';
-import { KeyboardAvoidingView, Platform, View, TextInput } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  View,
+  TextInput,
+  Alert,
+  StatusBar,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import * as Yup from 'yup';
 
 import { useAuth } from '../../hooks/auth';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import PasswordInput from '../../components/PasswordInput';
 import RememberButton from '../../components/RememberButton';
+import getValidationErrors from '../../utils/getValidationError';
 
 import {
   Container,
@@ -34,17 +43,41 @@ const Login: React.FC = () => {
 
   const [remember, setRemember] = useState(false);
 
-  const handleGoBack = useCallback(() => {
-    navigate('Onboarding3');
-  }, [navigate]);
-
   const handleSubmit = useCallback(
     async (data: FormData) => {
-      const { email, password } = data;
-      await signIn({ email, password, remember });
+      try {
+        formRef.current?.setErrors({});
+
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .email('Use um e-mail válido.')
+            .required('Insira um e-mail.'),
+          password: Yup.string().required('Insira sua senha.'),
+        });
+
+        await schema.validate(data, { abortEarly: false });
+
+        const { email, password } = data;
+
+        await signIn({ email, password, remember });
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
+        } else {
+          Alert.alert(
+            'E-mail ou senha estão errados',
+            'Por favor, tente novamente.',
+          );
+        }
+      }
     },
     [remember, signIn],
   );
+
+  const handleGoBack = useCallback(() => {
+    navigate('Onboarding3');
+  }, [navigate]);
 
   const handleRemember = useCallback(() => {
     setRemember(!remember);
@@ -55,6 +88,7 @@ const Login: React.FC = () => {
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
+      <StatusBar backgroundColor="transparent" barStyle="dark-content" />
       <ScrollView
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ flex: 1 }}

@@ -23,15 +23,15 @@ export const GoBackButton = styled.TouchableOpacity``;
 export const Title = styled.Text`
   font-size: 40px;
   font-family: 'Archivo_600SemiBold';
-  color: #3D3D4D;
+  color: #3d3d4d;
   width: 200px;
-  margin-bottom: 16px ;
+  margin-bottom: 16px;
 `;
 
 export const SubTitle = styled.Text`
   font-size: 15px;
   font-family: 'Inter_400Regular';
-  color: #7A7A80;
+  color: #7a7a80;
   width: 180px;
   line-height: 25px;
 
@@ -41,8 +41,8 @@ export const SubTitle = styled.Text`
 export const FormTitle = styled.Text`
   font-size: 20px;
   font-family: 'Archivo_600SemiBold';
-  color: #3D3D4D;
-  margin-bottom: 8px;
+  color: #3d3d4d;
+  margin-bottom: 16px;
 `;
 
 export const PageIndicator = styled.View`
@@ -54,7 +54,7 @@ export const ActiveSquare = styled.View`
   width: 4px;
   height: 4px;
   border-radius: 2px;
-  background-color: #47474D;
+  background-color: #47474d;
 `;
 
 export const InactiveSquare = styled.View`
@@ -62,8 +62,5 @@ export const InactiveSquare = styled.View`
   height: 4px;
   border-radius: 2px;
   margin-right: 8px;
-  background-color: #AEAEB3;
+  background-color: #aeaeb3;
 `;
-
-
-

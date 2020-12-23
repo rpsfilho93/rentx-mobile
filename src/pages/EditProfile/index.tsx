@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useRef } from 'react';
 import {
+  Alert,
   StatusBar,
   View,
   TextInput,
@@ -11,12 +12,16 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
+import * as Yup from 'yup';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import PasswordInput from '../../components/PasswordInput';
 import { useAuth } from '../../hooks/auth';
 import defaultAvatar from '../../assets/user.png';
+import api from '../../services/api';
+import ImagePickerButton from '../../components/ImagePicker';
+import getValidationErrors from '../../utils/getValidationError';
 
 import {
   Container,
@@ -26,13 +31,9 @@ import {
   Content,
   Avatar,
   AvatarContainer,
-  CameraButton,
-  CameraIcon,
   TabContainer,
   Tab,
 } from './styles';
-import api from '../../services/api';
-import ImagePickerButton from '../../components/ImagePicker';
 
 interface FormData1 {
   name: string;
@@ -65,32 +66,73 @@ const EditProfile: React.FC = () => {
 
   const handleSubmit1 = useCallback(
     async (data: FormData1) => {
-      const { name, email } = data;
+      try {
+        formRef1.current?.setErrors({});
 
-      const response = await api.put('/profile', {
-        name,
-        email,
-      });
+        const { name, email } = data;
 
-      updateUser(response.data);
-      navigate('SavedProfile');
+        const schema = Yup.object().shape({
+          name: Yup.string().required('Insira seu nome.'),
+          email: Yup.string()
+            .email('Insira um e-mail válido.')
+            .required('Insira seu e-mail.'),
+        });
+
+        await schema.validate(data, { abortEarly: false });
+
+        const response = await api.put('/profile', {
+          name,
+          email,
+        });
+
+        updateUser(response.data);
+        navigate('SavedProfile');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef1.current?.setErrors(errors);
+        } else {
+          Alert.alert('Este e-mail já está em uso.');
+        }
+      }
     },
     [updateUser, navigate],
   );
 
   const handleSubmit2 = useCallback(
     async (data: FormData2) => {
-      const { password, oldPassword } = data;
+      try {
+        formRef2.current?.setErrors({});
 
-      const response = await api.put('/profile', {
-        name: user.name,
-        email: user.email,
-        password,
-        old_password: oldPassword,
-      });
+        const { password, oldPassword } = data;
 
-      updateUser(response.data);
-      navigate('SavedProfile');
+        const schema = Yup.object().shape({
+          oldPassword: Yup.string().required('Insira a senha atual.'),
+          password: Yup.string().required('Insira uma nova senha.'),
+          repeatPassword: Yup.string()
+            .required('Repita a senha.')
+            .equals([Yup.ref('password')], 'As senhas devem ser identicas.'),
+        });
+
+        await schema.validate(data, { abortEarly: false });
+
+        const response = await api.put('/profile', {
+          name: user.name,
+          email: user.email,
+          password,
+          old_password: oldPassword,
+        });
+
+        updateUser(response.data);
+        navigate('SavedProfile');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef2.current?.setErrors(errors);
+        } else {
+          Alert.alert('A senha está incorreta');
+        }
+      }
     },
     [updateUser, user.name, user.email, navigate],
   );

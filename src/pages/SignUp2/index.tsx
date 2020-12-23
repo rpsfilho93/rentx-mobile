@@ -1,5 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   StatusBar,
@@ -10,10 +11,12 @@ import { Feather } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
+import * as Yup from 'yup';
 
 import { AuthParamList } from '../../routes/auth.routes';
 import Button from '../../components/Button';
 import PasswordInput from '../../components/PasswordInput';
+import getValidationErrors from '../../utils/getValidationError';
 
 import {
   Container,
@@ -49,17 +52,38 @@ const SignUp2: React.FC = () => {
 
   const handleSubmit = useCallback(
     async (data: DataForm) => {
-      const { password } = data;
+      try {
+        formRef.current?.setErrors({});
 
-      await api.post('/users', {
-        name,
-        email,
-        password,
-      });
+        const { password } = data;
 
-      navigate('SavedAccount');
+        const schema = Yup.object().shape({
+          password: Yup.string().required('Insira uma senha'),
+          repeatPassword: Yup.string()
+            .required('Digite a senha novamente.')
+            .equals([Yup.ref('password')], 'As senhas devem ser identicas.'),
+        });
+
+        await schema.validate(data, { abortEarly: false });
+
+        await api.post('/users', {
+          name,
+          email,
+          password,
+        });
+
+        navigate('SavedAccount');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
+        } else {
+          Alert.alert('Este e-mail já está em uso.');
+          goBack();
+        }
+      }
     },
-    [navigate, name, email],
+    [goBack, navigate, name, email],
   );
 
   return (
@@ -102,6 +126,7 @@ const SignUp2: React.FC = () => {
             <PasswordInput
               name="password"
               placeholder="Senha"
+              returnKeyType="next"
               containerStyle={{ marginBottom: 8 }}
               onSubmitEditing={() => {
                 repeatPasswordInputRef.current?.focus();

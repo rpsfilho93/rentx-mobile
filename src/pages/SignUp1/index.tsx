@@ -10,9 +10,11 @@ import { Feather } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
+import * as Yup from 'yup';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import getValidationErrors from '../../utils/getValidationError';
 
 import {
   Container,
@@ -37,8 +39,26 @@ const SignUp1: React.FC = () => {
   const emailInputRef = useRef<TextInput>(null);
 
   const handleSubmit = useCallback(
-    (data: FormData) => {
-      navigate('SignUp2', data);
+    async (data: FormData) => {
+      try {
+        formRef.current?.setErrors({});
+
+        const schema = Yup.object().shape({
+          name: Yup.string().required('Insira seu nome'),
+          email: Yup.string()
+            .email('Use um e-mail válido.')
+            .required('Insira um e-mail.'),
+        });
+
+        await schema.validate(data, { abortEarly: false });
+
+        navigate('SignUp2', data);
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
+        }
+      }
     },
     [navigate],
   );

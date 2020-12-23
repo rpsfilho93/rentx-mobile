@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { View } from 'react-native';
 import RangeSlider from 'rn-range-slider';
 import { Feather, SimpleLineIcons, Ionicons } from '@expo/vector-icons';
+
 import Button from '../../../components/Button';
 
 import {
