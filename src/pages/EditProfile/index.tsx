@@ -59,6 +59,8 @@ const EditProfile: React.FC = () => {
   const passwordInputRef = useRef<TextInput>(null);
   const repeatPasswordInputRef = useRef<TextInput>(null);
 
+  const [loading, setLoading] = useState(false);
+
   const { goBack } = useNavigation();
 
   const handleTabs = useCallback(() => {
@@ -68,6 +70,7 @@ const EditProfile: React.FC = () => {
   const handleSubmit1 = useCallback(
     async (data: FormData1) => {
       try {
+        setLoading(true);
         formRef1.current?.setErrors({});
 
         const { name, email } = data;
@@ -87,7 +90,9 @@ const EditProfile: React.FC = () => {
         });
 
         updateUser(response.data);
-        navigate('SavedProfile');
+        setLoading(false);
+
+        navigate('ProfileSaved');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -103,6 +108,7 @@ const EditProfile: React.FC = () => {
   const handleSubmit2 = useCallback(
     async (data: FormData2) => {
       try {
+        setLoading(true);
         formRef2.current?.setErrors({});
 
         const { password, oldPassword } = data;
@@ -125,7 +131,9 @@ const EditProfile: React.FC = () => {
         });
 
         updateUser(response.data);
-        navigate('SavedProfile');
+        setLoading(false);
+
+        navigate('ProfileSaved');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -214,6 +222,7 @@ const EditProfile: React.FC = () => {
                 </Form>
                 <Button
                   text="Salvar Alterações"
+                  loading={loading}
                   onPress={() => {
                     formRef1.current?.submitForm();
                     Keyboard.dismiss();
@@ -250,6 +259,7 @@ const EditProfile: React.FC = () => {
                   </Form>
                   <Button
                     text="Salvar Alterações"
+                    loading={loading}
                     style={{ marginTop: 24 }}
                     onPress={() => {
                       formRef2.current?.submitForm();

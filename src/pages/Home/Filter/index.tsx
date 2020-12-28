@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { View } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { View, Animated, Dimensions, PanResponder } from 'react-native';
 import RangeSlider from 'rn-range-slider';
 import { Feather, SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 
@@ -8,6 +8,7 @@ import Button from '../../../components/Button';
 import {
   Container,
   Header,
+  DraggableIcon,
   Title,
   Clean,
   CleanText,
@@ -34,17 +35,21 @@ interface FilterProps {
   transmission: 'Manual' | 'Automático';
   startPrice: number;
   endPrice: number;
+  visible: boolean;
   onSubmit(state: FilterState): void;
   noFilter(): void;
+  goBack(): void;
 }
 
 const Filter: React.FC<FilterProps> = ({
+  visible,
   startPrice,
   endPrice,
   fuel,
   transmission,
   onSubmit,
   noFilter,
+  goBack,
 }) => {
   const [fuelFilter, setFuelFilter] = useState<
     'Gasolina' | 'Elétrico' | 'Álcool'
@@ -55,6 +60,47 @@ const Filter: React.FC<FilterProps> = ({
   >(transmission);
   const [startPriceFilter, setStartPriceFilter] = useState<number>(startPrice);
   const [endPriceFilter, setEndPriceFilter] = useState<number>(endPrice);
+
+  const { height, width } = Dimensions.get('window');
+
+  const filterHeight = useMemo(() => new Animated.Value(height), [height]);
+
+  const hideFilter = Animated.timing(filterHeight, {
+    useNativeDriver: false,
+    toValue: height,
+    duration: 300,
+  });
+
+  const panResponder = useMemo(
+    () =>
+      PanResponder.create({
+        onMoveShouldSetPanResponder: (e, gestureState) => {
+          if (gestureState.dy > 0) {
+            return true;
+          }
+
+          return false;
+        },
+        onPanResponderRelease: () => {
+          Animated.timing(filterHeight, {
+            useNativeDriver: false,
+            toValue: height,
+            duration: 300,
+          }).start(goBack);
+        },
+      }),
+    [height, filterHeight, goBack],
+  );
+
+  useEffect(() => {
+    if (visible) {
+      Animated.timing(filterHeight, {
+        useNativeDriver: false,
+        toValue: 80,
+        duration: 300,
+      }).start();
+    }
+  }, [visible, filterHeight, height]);
 
   const renderThumb = useCallback(
     () => (
@@ -98,10 +144,20 @@ const Filter: React.FC<FilterProps> = ({
   );
 
   return (
-    <Container>
-      <Header>
+    <Container
+      style={{
+        top: filterHeight,
+      }}
+    >
+      <Header {...panResponder.panHandlers}>
+        <DraggableIcon style={{ left: width / 2 - 48 }} />
         <Title>Filtro</Title>
-        <Clean onPress={noFilter}>
+        <Clean
+          onPress={() => {
+            hideFilter.start();
+            noFilter();
+          }}
+        >
           <CleanText>Limpar todos</CleanText>
         </Clean>
       </Header>
@@ -111,7 +167,7 @@ const Filter: React.FC<FilterProps> = ({
           <PriceText>{`R$${startPriceFilter}-R$${endPriceFilter}`}</PriceText>
         </PriceHeader>
         <RangeSlider
-          style={{ width: 240, height: 24, alignSelf: 'center', marginTop: 16 }}
+          style={{ width: 340, height: 24, alignSelf: 'center', marginTop: 16 }}
           gravity="center"
           min={50}
           max={500}
@@ -206,13 +262,16 @@ const Filter: React.FC<FilterProps> = ({
         </TransmissionContainer>
       </FilterContainer>
       <Button
-        onPress={() =>
+        onPress={() => {
+          hideFilter.start();
+
           onSubmit({
             fuel: fuelFilter,
             transmission: transmissionFilter,
             startPrice: startPriceFilter,
             endPrice: endPriceFilter,
-          })}
+          });
+        }}
         text="Confirmar"
         style={{ marginTop: 24 }}
       />

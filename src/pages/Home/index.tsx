@@ -35,6 +35,7 @@ const Home: React.FC = () => {
   const [cars, setCars] = useState<Car[]>();
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState(false);
+  const [showOpacity, setShowOpacity] = useState(false);
 
   const [fuelFilter, setFuelFilter] = useState<
     'Gasolina' | 'Elétrico' | 'Álcool'
@@ -58,11 +59,14 @@ const Home: React.FC = () => {
     setOptions({
       tabBarVisible: false,
     });
+    setShowOpacity(true);
     setFilter(!filter);
   }, [filter, setOptions]);
 
   const goBack = useCallback(() => {
     setFilter(false);
+    setShowOpacity(false);
+
     setOptions({
       tabBarVisible: true,
     });
@@ -89,6 +93,8 @@ const Home: React.FC = () => {
   const filterSubmit = useCallback(
     async ({ fuel, transmission, startPrice, endPrice }: FilterState) => {
       setFilter(false);
+      setShowOpacity(false);
+
       setOptions({
         tabBarVisible: true,
       });
@@ -117,11 +123,12 @@ const Home: React.FC = () => {
 
   const noFilterSearch = useCallback(async () => {
     setFilter(false);
+    setShowOpacity(false);
+    setLoading(true);
+
     setOptions({
       tabBarVisible: true,
     });
-
-    setLoading(true);
 
     const response = await api.get('/cars');
 
@@ -184,19 +191,18 @@ const Home: React.FC = () => {
             )}
         </Content>
 
-        {filter && (
-          <>
-            <BackgroundOpacity onPress={goBack} />
-            <Filter
-              fuel={fuelFilter}
-              startPrice={startPriceFilter}
-              endPrice={endPriceFilter}
-              transmission={transmissionFilter}
-              onSubmit={filterSubmit}
-              noFilter={noFilterSearch}
-            />
-          </>
-        )}
+        {showOpacity && <BackgroundOpacity onPress={goBack} />}
+
+        <Filter
+          visible={filter}
+          fuel={fuelFilter}
+          startPrice={startPriceFilter}
+          endPrice={endPriceFilter}
+          transmission={transmissionFilter}
+          onSubmit={filterSubmit}
+          noFilter={noFilterSearch}
+          goBack={goBack}
+        />
       </Container>
     </>
   );

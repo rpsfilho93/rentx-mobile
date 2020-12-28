@@ -43,10 +43,12 @@ const Login: React.FC = () => {
   const passwordInputRef = useRef<TextInput>(null);
 
   const [remember, setRemember] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = useCallback(
     async (data: FormData) => {
       try {
+        setLoading(true);
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
@@ -150,6 +152,7 @@ const Login: React.FC = () => {
 
           <Button
             text="Login"
+            loading={loading}
             onPress={() => {
               formRef.current?.submitForm();
               Keyboard.dismiss();

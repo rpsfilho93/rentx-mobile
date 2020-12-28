@@ -1,18 +1,18 @@
 import styled from 'styled-components/native';
+import { Animated } from 'react-native';
 
-export const Container = styled.View`
+export const Container = styled(Animated.View)`
   background: #fff;
   border-top-left-radius: 18px;
   border-top-right-radius: 18px;
   height: 88%;
   width: 100%;
 
-  padding: 24px 24px;
+  padding: 0px 24px;
   position: absolute;
-  bottom: 0;
 `;
 
-export const Header = styled.View`
+export const Header = styled(Animated.View)`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -20,7 +20,29 @@ export const Header = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: #ebebf0;
 
-  padding-bottom: 16px;
+  padding: 16px 0px;
+`;
+
+export const Draggable = styled(Animated.View)`
+  width: 50%;
+  height: 24px;
+  align-self: center;
+
+  border: 1px solid red;
+
+  justify-content: center;
+  align-items: center;
+`;
+
+export const DraggableIcon = styled.View`
+  height: 4px;
+  width: 48px;
+
+  border-radius: 18px;
+  background: #ebebf0;
+
+  position: absolute;
+  top: 12px;
 `;
 
 export const Title = styled.Text`
