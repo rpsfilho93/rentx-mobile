@@ -23,7 +23,7 @@
 - [x] Escolha o período do aluguel
 
 <img src="./.github/calendar.gif" height="200">
- 
+
 - [x] Escolha seu carro
 
 <img src="./.github/calendar.gif" height="200">
@@ -33,14 +33,6 @@
 - [x] Splash Screen
 
 <img src="./.github/rentxsplashscreen.gif" height="200">
-
-- [x] Paginação na listagem de proffys
-
-- [x] Listar proffys favoritos
-
-- [x] Logout da aplicação
-
-- [x] Deploy da aplicação
 
 # :construction_worker: Como rodar na sua máquina
 
