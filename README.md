@@ -21,17 +21,17 @@
 ### :computer: Funcionalidades
 <p align="center">
   <p>
-    Escolha o período do aluguel
+    <p>Escolha o período do aluguel</p>
     <img src="./.github/calendar.gif" height="200">
   </p>  
 
-  <p align="center">
-    Escolha o período do aluguel
+  <p>
+    <p>Escolha o período do aluguel</p>
     <img src="./.github/calendar.gif" height="200">
   </p>
 
   <p>
-    Splash Screen
+    <p>Splash Screen</p>
     <img src="./.github/rentxsplashscreen.gif" height="200">
   </p>
 </p>
