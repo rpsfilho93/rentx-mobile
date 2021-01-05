@@ -19,21 +19,22 @@
 >  Um app para alugar carros :car:
 
 ### :computer: Funcionalidades
+<p align="center">
   <p>
-    <p>Escolha o período do aluguel</p>
+    Escolha o período do aluguel
     <img src="./.github/calendar.gif" height="200">
   </p>  
 
   <p align="center">
-    <p>Escolha o período do aluguel</p>
+    Escolha o período do aluguel
     <img src="./.github/calendar.gif" height="200">
   </p>
 
   <p>
-    <p>Splash Screen</p>
+    Splash Screen
     <img src="./.github/rentxsplashscreen.gif" height="200">
   </p>
-  
+</p>
 ### :construction_worker: Como rodar na sua máquina
 
 ### Clone o repositório
