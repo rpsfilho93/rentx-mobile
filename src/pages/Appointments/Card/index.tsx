@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
+import PropTypes, { string } from 'prop-types';
 import {
   differenceInDays,
   format,
@@ -55,6 +56,7 @@ const fuelIconStyles = {
       style={{ marginRight: 20 }}
     />
   ),
+  gear: null,
 };
 
 const Card: React.FC<CardProps> = ({ rental }) => {
@@ -62,6 +64,13 @@ const Card: React.FC<CardProps> = ({ rental }) => {
 
   const startDate = parseISO(String(start_date));
   const endDate = parseISO(String(end_date));
+
+  const rentedNow = useMemo(() => {
+    return isWithinInterval(new Date(), {
+      start: startOfDay(startDate),
+      end: endOfDay(endDate),
+    });
+  }, [startDate, endDate]);
 
   const interval = differenceInDays(endDate, startDate);
 
@@ -74,9 +83,9 @@ const Card: React.FC<CardProps> = ({ rental }) => {
     );
   }, []);
 
-  const fuelIcon = useMemo<string>(() => {
+  const fuelIcon = useMemo<SpecIcon>((): SpecIcon => {
     const fuelSpec = car.specs.find(spec => spec.name === 'Fuel');
-    return fuelSpec ? fuelSpec.icon : '';
+    return fuelSpec ? fuelSpec.icon : undefined;
   }, [car.specs]);
 
   return (
@@ -100,14 +109,11 @@ const Card: React.FC<CardProps> = ({ rental }) => {
         <CarImage source={{ uri: car.CarImage[0].image_url }} />
       </CarContainer>
 
-      {isWithinInterval(new Date(), {
-        start: startOfDay(startDate),
-        end: endOfDay(endDate),
-      }) ? (
-          <EndDateContainer>
-            <EndDateText>{`Utilizando até ${formatDate(endDate)}`}</EndDateText>
-          </EndDateContainer>
-        ) : (
+      {rentedNow ? (
+        <EndDateContainer>
+          <EndDateText>{`Utilizando até ${formatDate(endDate)}`}</EndDateText>
+        </EndDateContainer>
+      ) : (
           <PeriodContainer>
             <PeriodText>PERIODO</PeriodText>
             <DateContainer>
@@ -122,3 +128,31 @@ const Card: React.FC<CardProps> = ({ rental }) => {
 };
 
 export default Card;
+
+Card.propTypes = {
+  rental: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    car: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      brand: PropTypes.string.isRequired,
+      daily_value: PropTypes.number.isRequired,
+      CarImage: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          image_url: PropTypes.string.isRequired,
+        }).isRequired,
+      ).isRequired,
+      specs: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          description: PropTypes.string.isRequired,
+          icon: PropTypes.oneOf(['gas', 'eletric', 'bio', 'gear', undefined])
+            .isRequired,
+        }).isRequired,
+      ).isRequired,
+    }).isRequired,
+    start_date: PropTypes.instanceOf(Date).isRequired,
+    end_date: PropTypes.instanceOf(Date).isRequired,
+  }).isRequired,
+};

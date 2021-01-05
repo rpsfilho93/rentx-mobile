@@ -6,7 +6,7 @@ export interface CarImageDTO {
 export interface SpecDTO {
   name: string;
   description: string;
-  icon: string;
+  icon: SpecIcon;
 }
 
 export default interface CarDTO {

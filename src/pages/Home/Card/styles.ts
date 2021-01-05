@@ -69,12 +69,11 @@ export const ImageCanvas = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   margin-right: 6px;
-  padding-left: 8px;
 `;
 
 export const CarImage = styled.Image`
   width: 100%;
-  aspect-ratio: 2.3;
+  aspect-ratio: 2.1;
 `;
 
 export const FuelIcon = styled(Feather).attrs({

@@ -1,58 +1,64 @@
 {
-    "env": {
-        "es6": true,
-        "browser": true,
-        "node": true
-    },
-    "extends": [
-        "plugin:react/recommended",
-        "airbnb",
-        "plugin:@typescript-eslint/recommended",
-        "prettier/@typescript-eslint",
-        "plugin:prettier/recommended"
-    ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly",
-        "__DEV__": "readonly"
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module",
-      "ecmaFeatures": {
-          "jsx": true
-      }
-    },
-    "plugins": [
-        "react",
-        "@typescript-eslint",
-        "react-hooks",
-        "prettier"
-    ],
-    "rules": {
-      "camelcase": "off",
-      "no-use-before-define": "off",
-      "prettier/prettier": "error",
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
-      "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
-      "import/prefer-default-export": "off",
-      "no-unused-expressions": "off",
-      "import/extensions": [
-        "error",
-        "ignorePackages",
-        {
-          "ts": "never",
-          "tsx": "never"
-        }
-      ],
-      "import/no-extraneous-dependencies": "off",
-      "import/no-duplicates": "off"
-    },
-    "settings": {
-      "import/resolver": {
-        "typescript": {}
-      }
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly",
+    "__DEV__": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
     }
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "react-hooks",
+    "prettier"
+  ],
+  "rules": {
+    "camelcase": "off",
+    "no-use-before-define": "off",
+    "prettier/prettier": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".tsx"
+        ]
+      }
+    ],
+    "no-unused-expressions": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "import/no-extraneous-dependencies": "off",
+    "import/no-duplicates": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  }
 }

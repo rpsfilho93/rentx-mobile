@@ -64,10 +64,13 @@ const Login: React.FC = () => {
 
         await signIn({ email, password, remember });
       } catch (err) {
+        setLoading(false);
+
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
         } else {
+          console.log(err);
           Alert.alert(
             'E-mail ou senha estão errados',
             'Por favor, tente novamente.',

@@ -101,7 +101,7 @@ const Details: React.FC = () => {
   const renderSpec = useCallback((spec: SpecDTO) => {
     return (
       <SpecContainer>
-        {icons[spec.icon]}
+        {spec.icon && icons[spec.icon]}
         <SpecText>{spec.description}</SpecText>
       </SpecContainer>
     );

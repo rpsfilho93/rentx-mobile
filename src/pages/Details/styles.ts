@@ -96,6 +96,7 @@ export const ImagesContainer = styled(
 
 export const ImageCanvas = styled.View`
   width: 328px;
+  aspect-ratio: 2.3;
   align-items: center;
   justify-content: center;
   margin-right: 6px;
@@ -103,7 +104,7 @@ export const ImageCanvas = styled.View`
 
 export const CarImage = styled.Image`
   width: 90%;
-  aspect-ratio: 2.2;
+  aspect-ratio: 2.1;
 `;
 
 export const DateContainer = styled.View`

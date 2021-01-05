@@ -39,7 +39,7 @@ const Card: React.FC<CardProps> = ({ car, start, end }) => {
   }, [car.specs]);
 
   return (
-    <Container onPress={() => navigate('Details', { car })}>
+    <Container>
       <CarData>
         <CarNameContainer>
           <CarBrand>{car.brand.toUpperCase()}</CarBrand>
