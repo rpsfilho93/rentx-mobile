@@ -27,6 +27,7 @@
 
 - [x] Splash Screen
 <img src="./.github/rentxsplashscreen.gif" height="200">
+
 ### :construction_worker: Como rodar na sua máquina
 
 ### Clone o repositório
