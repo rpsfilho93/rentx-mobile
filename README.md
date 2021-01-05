@@ -20,19 +20,13 @@
 
 ### :computer: Funcionalidades
 
-- [x] Escolha o período do aluguel
+<p align="left">Escolha o período do aluguel</p>
 
-<img src="./.github/calendar.gif" height="200">
+<img src="./.github/calendar.gif" height="200" align="left">
 
-- [x] Escolha seu carro
+<p align="right">Splash Screen</p>
 
-<img src="./.github/calendar.gif" height="200">
-
-- [x] Perfil do usuário
-
-- [x] Splash Screen
-
-<img src="./.github/rentxsplashscreen.gif" height="200">
+<img src="./.github/rentxsplashscreen.gif" height="200" align="right">
 
 # :construction_worker: Como rodar na sua máquina
 
