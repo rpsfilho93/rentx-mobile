@@ -22,8 +22,8 @@
 - [x] Escolha o período do aluguel
 <img src="./.github/calendar.gif" height="200">
 
-- [x] Escolha o período do aluguel
-<img src="./.github/calendar.gif" height="200">
+- [x] Escolha seu carro
+<img src="./.github/choose.gif" height="200">
 
 - [x] Splash Screen
 <img src="./.github/rentxsplashscreen.gif" height="200">
