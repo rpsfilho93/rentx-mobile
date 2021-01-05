@@ -70,7 +70,6 @@ const Login: React.FC = () => {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
         } else {
-          console.log(err);
           Alert.alert(
             'E-mail ou senha estão errados',
             'Por favor, tente novamente.',

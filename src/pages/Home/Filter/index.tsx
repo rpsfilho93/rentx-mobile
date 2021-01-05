@@ -99,8 +99,10 @@ const Filter: React.FC<FilterProps> = ({
         toValue: 80,
         duration: 300,
       }).start();
+    } else {
+      hideFilter.start();
     }
-  }, [visible, filterHeight, height]);
+  }, [visible, filterHeight, height, hideFilter]);
 
   const renderThumb = useCallback(
     () => (

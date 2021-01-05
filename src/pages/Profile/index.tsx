@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Feather, SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-import { StatusBar } from 'react-native';
+import { ActivityIndicator, StatusBar } from 'react-native';
 
 import defaultAvatar from '../../assets/user.png';
 import { useAuth } from '../../hooks/auth';
@@ -33,6 +33,7 @@ import {
   IconContainer,
   CarImage,
 } from './styles';
+import api from '../../services/api';
 
 const fuelIcon = {
   gas: <Feather name="droplet" size={22} color="#AEAEB3" />,
@@ -42,7 +43,21 @@ const fuelIcon = {
 
 const Profile: React.FC = () => {
   const { navigate } = useNavigation();
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function loadProfile() {
+      setLoading(true);
+      const response = await api.get('/profile');
+
+      updateUser(response.data);
+      setLoading(false);
+    }
+
+    loadProfile();
+  }, [updateUser]);
 
   const navigateEdit = useCallback(() => {
     navigate('EditProfile');
@@ -71,19 +86,27 @@ const Profile: React.FC = () => {
       <Content>
         <ProfileContainer>
           <Avatar
-            source={user.image_url ? { uri: user.image_url } : defaultAvatar}
+            source={
+              user.image_url && !loading
+                ? { uri: user.image_url }
+                : defaultAvatar
+            }
           />
           <Name>{user.name}</Name>
         </ProfileContainer>
 
-        <SchedulesContainer>
-          <SchedulesText>Agendamentos Feitos</SchedulesText>
-          <SchedulesNumber>
-            {user.favoriteCar ? user.rentals : 0}
-          </SchedulesNumber>
-        </SchedulesContainer>
+        {loading ? (
+          <ActivityIndicator size="large" color="#dc1637" />
+        ) : (
+            <SchedulesContainer>
+              <SchedulesText>Agendamentos Feitos</SchedulesText>
+              <SchedulesNumber>
+                {user.favoriteCar ? user.rentals : 0}
+              </SchedulesNumber>
+            </SchedulesContainer>
+          )}
 
-        {user.favoriteCar && (
+        {user.favoriteCar && !loading && (
           <>
             <FavoriteCarContainer>
               <FavoriteCarText>Carro Favorito</FavoriteCarText>

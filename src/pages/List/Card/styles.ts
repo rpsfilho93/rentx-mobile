@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
 
-export const Container = styled.TouchableOpacity`
+export const Container = styled.View`
   width: 100%;
   aspect-ratio: 2.2;
   padding: 24px 16px;

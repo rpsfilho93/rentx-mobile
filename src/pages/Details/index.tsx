@@ -108,8 +108,6 @@ const Details: React.FC = () => {
   }, []);
 
   const handleRentNow = useCallback(async () => {
-    console.log('start', start.toISOString());
-
     await api.post('/rentals', {
       car_id: id,
       start_date: start,
@@ -200,8 +198,7 @@ const Details: React.FC = () => {
             <TotalLabel>TOTAL</TotalLabel>
             <CalcText>
               {`R$ ${daily_value}x${interval} ${interval > 1 ? 'diárias' : 'diária'
-                }
-              `}
+                }`}
             </CalcText>
           </TotalContainer>
           <TotalText>{`R$ ${daily_value * interval}`}</TotalText>
