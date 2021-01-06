@@ -16,10 +16,13 @@
   </a>
 </p>
 
->  Um app para alugar carros :car:
+>  Um app para alugar carros. :car:
+
+### Layout da aplicação
+Acesse o arquivo no Figma com todas as páginas do app [aqui](https://www.figma.com/file/7Ro0D8mdcX36qWnSBhWaXF/RentX?node-id=0%3A1).
 
 ### Repositório do Servidor
-O servidor do app está hospedado no Heroku, você não precisa rodá-lo localmente. Acesse o repositório [aqui](href="https://github.com/rpsfilho93/proffy/rentx-server").
+O servidor do app está hospedado no Heroku, você não precisa rodá-lo localmente. Acesse o repositório [aqui](https://github.com/rpsfilho93/rentx-server).
 
 ### :computer: Funcionalidades
 - [x] Escolha o período do aluguel
