@@ -71,18 +71,15 @@ const SignUp1: React.FC = () => {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      enabled
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ flex: 1 }}
       >
         <Container>
-          <StatusBar
-            barStyle="dark-content"
-            translucent
-            backgroundColor="transparent"
-          />
+          <StatusBar barStyle="dark-content" translucent />
 
           <Header>
             <GoBackButton onPress={handleGoBack}>

@@ -2,13 +2,12 @@ import React, { useCallback, useRef, useState } from 'react';
 import { View, StatusBar, ViewToken, TouchableOpacity } from 'react-native';
 import { Feather, SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { FlatList } from 'react-native-gesture-handler';
 import { format, differenceInDays } from 'date-fns';
 import { pt } from 'date-fns/locale';
 
 import { AppParamList } from '../../routes/app.routes';
 import { useDateRange } from '../../hooks/dateRange';
-import CarDTO, { CarImageDTO, SpecDTO } from '../../DTOS/Car';
+import { CarImageDTO, SpecDTO } from '../../DTOS/Car';
 import Cambio from '../../assets/Câmbio.png';
 import Button from '../../components/Button';
 
@@ -119,7 +118,7 @@ const Details: React.FC = () => {
 
   return (
     <Container>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="dark-content" backgroundColor="transparent" />
       <CarData>
         <Header>
           <TouchableOpacity onPress={() => goBack()}>

@@ -90,7 +90,7 @@ const SignUp2: React.FC = () => {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView
         keyboardShouldPersistTaps="handled"

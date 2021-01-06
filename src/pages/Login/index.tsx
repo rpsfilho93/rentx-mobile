@@ -92,14 +92,14 @@ const Login: React.FC = () => {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ flex: 1 }}
       >
         <Container>
-          <StatusBar backgroundColor="transparent" barStyle="dark-content" />
+          <StatusBar barStyle="dark-content" translucent />
 
           <GoBackButton onPress={handleGoBack}>
             <Feather

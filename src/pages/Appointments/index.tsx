@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { StatusBar, ActivityIndicator } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import RentalDTO from '../../DTOS/Rental';
 import api from '../../services/api';
 import Card from './Card';
@@ -28,6 +30,15 @@ const Appointments: React.FC = () => {
     }
 
     loadRentals();
+  }, []);
+
+  const updateRentals = useCallback(async () => {
+    setLoading(true);
+    setRentals([]);
+    const response = await api.get('/rentals');
+
+    setRentals(response.data);
+    setLoading(false);
   }, []);
 
   return (
@@ -59,6 +70,12 @@ const Appointments: React.FC = () => {
               renderItem={({ item }) => <Card rental={item} />}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{ paddingBottom: 128 }}
+              ListFooterComponent={
+                <TouchableOpacity onPress={updateRentals}>
+                  <Feather name="refresh-cw" size={22} color="#dc1637" />
+                </TouchableOpacity>
+              }
+              ListFooterComponentStyle={{ alignSelf: 'center' }}
             />
           )}
       </Content>

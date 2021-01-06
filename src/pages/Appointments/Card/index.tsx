@@ -47,13 +47,20 @@ const fuelIconStyles = {
       style={{ marginRight: 16 }}
     />
   ),
-  eletric: <SimpleLineIcons name="energy" size={22} color="#AEAEB3" />,
+  eletric: (
+    <SimpleLineIcons
+      name="energy"
+      size={22}
+      color="#AEAEB3"
+      style={{ marginRight: 24 }}
+    />
+  ),
   bio: (
     <Ionicons
       name="md-leaf-outline"
       size={24}
       color="#AEAEB3"
-      style={{ marginRight: 20 }}
+      style={{ marginRight: -4 }}
     />
   ),
   gear: null,
@@ -152,7 +159,7 @@ Card.propTypes = {
         }).isRequired,
       ).isRequired,
     }).isRequired,
-    start_date: PropTypes.instanceOf(Date).isRequired,
+    start_date: PropTypes.string.isRequired,
     end_date: PropTypes.instanceOf(Date).isRequired,
   }).isRequired,
 };

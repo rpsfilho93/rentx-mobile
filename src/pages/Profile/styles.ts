@@ -158,6 +158,6 @@ export const CarImage = styled.Image`
 
 export const IconContainer = styled.View`
   position: absolute;
-  right: 0;
+  right: -32px;
   bottom: 0;
 `;

@@ -22,16 +22,10 @@ const Onboarding1: React.FC = () => {
 
   const handleNextPage = useCallback(() => {
     navigate('Onboarding2');
-  }, []);
+  }, [navigate]);
 
   return (
     <Container>
-      <StatusBar
-        barStyle="dark-content"
-        translucent
-        backgroundColor="transparent"
-      />
-
       <ImageContainer>
         <Feather name="calendar" size={70} color="#f00" />
         <Numeral>01</Numeral>

@@ -136,6 +136,7 @@ const Filter: React.FC<FilterProps> = ({
     ),
     [],
   );
+
   const renderRail = useCallback(
     () => <View style={{ flex: 1, borderColor: '#f4f5f6', borderWidth: 1 }} />,
     [],

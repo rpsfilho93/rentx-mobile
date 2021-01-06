@@ -33,11 +33,7 @@ const Onboarding3: React.FC = () => {
 
   return (
     <Container>
-      <StatusBar
-        barStyle="light-content"
-        translucent
-        backgroundColor="transparent"
-      />
+      <StatusBar translucent barStyle="light-content" />
 
       <Logo source={logo} />
       <Title>
