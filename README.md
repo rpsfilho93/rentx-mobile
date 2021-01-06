@@ -19,7 +19,7 @@
 >  Um app para alugar carros :car:
 
 ### Repositório do Servidor
-O servidor do app está hospedado no Heroku, você não precisa rodá-lo localmente. Acesse o repositório [aqui](<a href="https://github.com/rpsfilho93/proffy/rentx-server">).
+O servidor do app está hospedado no Heroku, você não precisa rodá-lo localmente. Acesse o repositório [aqui](href="https://github.com/rpsfilho93/proffy/rentx-server").
 
 ### :computer: Funcionalidades
 - [x] Escolha o período do aluguel
